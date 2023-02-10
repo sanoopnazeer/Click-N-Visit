@@ -13,7 +13,7 @@ const adminSlice = createSlice({
             state.admin = action.payload;
         },
         setLogout: (state, action) => {
-            localStorage.clear();
+            localStorage.removeItem('admin');
             state.admin = null;
         },
     },

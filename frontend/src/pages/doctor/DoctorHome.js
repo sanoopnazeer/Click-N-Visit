@@ -1,10 +1,12 @@
 import React from 'react'
-import DoctorHome from '../../components/Doctor/DoctorHome/DoctorHome'
+import Layout from '../../components/Doctor/Layout'
 
-const doctorHome = () => {
+const DoctorHome = () => {
   return (
-    <DoctorHome />
-    )
+    <Layout>
+    <h1>DoctorHome</h1>
+    </Layout>
+  )
 }
 
-export default doctorHome
+export default DoctorHome

@@ -22,6 +22,7 @@ import DoctorLogin from './pages/doctor/DoctorLogin';
 import DoctorHome from './pages/doctor/DoctorHome';
 import FindDoctor from './pages/doctor/FindDoctor';
 import InCategoryDoctorsList from './pages/doctor/InCategoryDoctorsList';
+import DoctorProfile from './pages/doctor/DoctorProfile';
 
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/doctorSignup" element={<DoctorSignup />} />
         <Route path="/doctorLogin" element={<DoctorLogin />} />
         <Route path="/doctorHome" element={<DoctorHome />} />
+        <Route path="/doctorProfile/:docId" element={<DoctorProfile />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/adminSignup" element={<AdminSignup />} />
         <Route path="/findDoctor" element={<FindDoctor />} />

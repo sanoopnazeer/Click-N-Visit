@@ -160,12 +160,12 @@ const DoctorLogin = () => {
         padding: "15px",
         maxWidth: "450px",
         alignContent: "center",
-        marginTop: "120px",
+        // marginTop: "120px",
       }}
     >
       <MDBCard alignment="center">
-        <MDBIcon fas icon="user-circle" className="fa-2x" />
-        <h5>Welcome back Doctor...!!!</h5>
+        <MDBIcon fas icon="user-circle" className="fa-6x py-5" />
+        <h3>Welcome back Doctor...!!!</h3>
         <MDBCardBody>
           <MDBValidation onSubmit={handleSubmit} noValidate className="row g-3">
             <MDBValidationItem

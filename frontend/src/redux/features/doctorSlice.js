@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { doctorLogin } from "../../axios/services/HomeServices";
 
 const doctorSlice = createSlice({
@@ -13,23 +14,25 @@ const doctorSlice = createSlice({
             state.doctor = action.payload;
         },
         setLogout: (state, action) => {
-            localStorage.clear();
+            localStorage.removeItem('doctor');
             state.doctor = null;
+            toast.success("Logged out successfully")
         },
     },
-    extraReducers: {
-        [doctorLogin.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder
+        .addCase(doctorLogin.pending, (state, action) => {
             state.loading = true
-        },
-        [doctorLogin.fulfilled]: (state, action) => {
+        })
+        .addCase(doctorLogin.fulfilled, (state, action) => {
             state.loading = false
             localStorage.setItem("doctor", JSON.stringify({...action.payload}))
             state.doctor = action.payload
-        },
-        [doctorLogin.rejected]: (state, action) => {
+        })
+        .addCase(doctorLogin.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload.message
-        },
+        })
         // [doctorRegister.pending]: (state, action) => {
         //     state.loading = true
         // },

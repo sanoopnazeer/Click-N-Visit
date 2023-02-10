@@ -5,33 +5,36 @@ const doctorSchema = mongoose.Schema(
   {
     firstname: {
       type: String,
-      required: true,
+      required: [true, 'First name is required'],
     },
     lastname: {
       type: String,    
-      required: true,
-    },
-    // specialization: 
-    //   {
-    //     categoryId: {
-    //       type: mongoose.Schema.Types.ObjectId
-    //     },
-    //     category: {
-    //       type: String
-    //     },
-    //   } ,
-    specialization: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category'
+      required: [true, 'Last name is required'],
     },
     email: {
       type: String,
-      required: true,
+      required: [true, 'Email name is required'],
       unique: true,
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Password is required'],
+    },
+    specialization: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category'
+    },
+    experience: {
+      type: String,
+      required: [true, 'Experience is required']
+    },
+    feesPerConsultation: {
+      type: Number,
+      required: [true, 'Fees is required']
+    },
+    timings: {
+      type: Object,
+      required: [true, 'Provide your timing']
     },
     verified: {
       type: Boolean,

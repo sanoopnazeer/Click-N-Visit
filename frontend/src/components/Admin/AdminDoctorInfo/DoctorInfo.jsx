@@ -47,6 +47,18 @@ const DoctorInfo = () => {
       selector: (row) => row.specialization.category,
     },
     {
+      name: "Experience (years)",
+      selector: (row) => row.experience,
+    },
+    {
+      name: "Fees (in rupees)",
+      selector: (row) => row.feesPerConsultation,
+    },
+    {
+      name: "Timings",
+      selector: (row) => row.timings,
+    },
+    {
       name: "Approval status",
       selector: (row) => {
         return (

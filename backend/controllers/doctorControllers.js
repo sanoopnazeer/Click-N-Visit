@@ -43,7 +43,16 @@ const doctorSignin = async (req, res) => {
 
 const doctorSignup = asyncHandler(async (req, res) => {
   try {
-    const { firstname, lastname, specialization, email, password } = req.body;
+    const {
+      firstname,
+      lastname,
+      specialization,
+      email,
+      password,
+      experience,
+      feesPerConsultation,
+      timings,
+    } = req.body;
     let doctorExists = await Doctor.findOne({ email });
 
     if (doctorExists) {
@@ -56,6 +65,9 @@ const doctorSignup = asyncHandler(async (req, res) => {
       specialization,
       email,
       password,
+      experience,
+      feesPerConsultation,
+      timings,
     });
 
     const token = jwt.sign(
@@ -73,14 +85,11 @@ const doctorSignup = asyncHandler(async (req, res) => {
 
 const getDoctorByCategory = async (req, res) => {
   try {
-    console.log("inside backend getdoccat");
     const catId = mongoose.Types.ObjectId(req.params.id);
-    console.log("below is inside backend")
-    console.log(catId);
-    const doctors = await Doctor.findOne({ specialization: catId }).populate(
+    const doctors = await Doctor.find({ specialization: catId }).populate(
       "specialization"
     );
-    console.log(doctors);
+    // console.log(doctors);
     res.json({ doctorDetails: doctors, status: "ok" });
   } catch (err) {
     console.log(err);
@@ -88,4 +97,41 @@ const getDoctorByCategory = async (req, res) => {
   }
 };
 
-module.exports = { doctorSignin, doctorSignup, getDoctorByCategory };
+const getDoctorProfile = async (req, res) => {
+  try {
+    console.log("staart of get profile");
+    const docId = mongoose.Types.ObjectId(req.params.id);
+    const doctor = await Doctor.findOne({ _id: docId }).populate(
+      "specialization"
+    );
+    res.json({ doctorProfile: doctor, status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+const updateDoctorProfile = async (req, res) => {
+  try {
+    console.log(req.body.formData);
+    console.log("inside backend update");
+    const docId = mongoose.Types.ObjectId(req.params.id);
+    const updated = await Doctor.findOneAndUpdate(
+      { _id: docId },
+      req.body.formData
+    );
+    console.log(updated);
+    res.json({ updatedDoc: updated, status: "ok", message: "Profile updated" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+module.exports = {
+  doctorSignin,
+  doctorSignup,
+  getDoctorByCategory,
+  getDoctorProfile,
+  updateDoctorProfile,
+};

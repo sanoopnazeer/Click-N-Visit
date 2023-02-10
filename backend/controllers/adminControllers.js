@@ -101,8 +101,6 @@ const unblockUser = async (req, res) => {
 const allDoctors = async (req, res) => {
   try {
     const doctors = await Doctor.find().populate("specialization");
-
-    console.log(doctors);
     res.json({ doctorDetails: doctors, status: "ok" });
   } catch (err) {
     console.log(err);
