@@ -9,8 +9,6 @@ const DoctorInfo = () => {
     const token = localStorage.getItem("admin")
     const data = await getDoctorInfo(token)
     setDetails(data.doctorDetails)
-    console.log(data);
-    console.log("hoiiiiiiiiiiiiiiii");
   }
 
   useEffect(() => {
@@ -41,6 +39,10 @@ const DoctorInfo = () => {
     {
       name: "Email",
       selector: (row) => row.email,
+    },
+    {
+      name: "License Number",
+      selector: (row) => row.license,
     },
     {
       name: "Specialization",

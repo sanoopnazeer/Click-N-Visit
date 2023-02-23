@@ -12,6 +12,8 @@ const FindDoctor = () => {
     const token = localStorage.getItem("admin");
     const data = await getCategories(token);
     setCategories(data.categoryDetails);
+
+    console.log(categories)
   };
 
   useEffect(() => {

@@ -24,11 +24,13 @@
     "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
     "react-file-base64": "^1.0.3",
+    "react-razorpay": "^1.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.1",
     "styled-components": "^5.3.6",
+    "timeago.js": "^4.0.2",
     "web-vitals": "^3.1.1"
   },
   "scripts": {

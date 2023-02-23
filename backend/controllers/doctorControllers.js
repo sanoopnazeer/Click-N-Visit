@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { default: mongoose } = require("mongoose");
 const Category = require("../models/CategoryModel");
+const Appointments = require("../models/appointmentModel");
 
 const doctorSignin = async (req, res) => {
   const { email, password } = req.body;
@@ -52,6 +53,7 @@ const doctorSignup = asyncHandler(async (req, res) => {
       experience,
       feesPerConsultation,
       timings,
+      license
     } = req.body;
     let doctorExists = await Doctor.findOne({ email });
 
@@ -68,6 +70,7 @@ const doctorSignup = asyncHandler(async (req, res) => {
       experience,
       feesPerConsultation,
       timings,
+      license
     });
 
     const token = jwt.sign(
@@ -99,7 +102,6 @@ const getDoctorByCategory = async (req, res) => {
 
 const getDoctorProfile = async (req, res) => {
   try {
-    console.log("staart of get profile");
     const docId = mongoose.Types.ObjectId(req.params.id);
     const doctor = await Doctor.findOne({ _id: docId }).populate(
       "specialization"
@@ -113,15 +115,81 @@ const getDoctorProfile = async (req, res) => {
 
 const updateDoctorProfile = async (req, res) => {
   try {
-    console.log(req.body.formData);
-    console.log("inside backend update");
     const docId = mongoose.Types.ObjectId(req.params.id);
     const updated = await Doctor.findOneAndUpdate(
       { _id: docId },
       req.body.formData
     );
-    console.log(updated);
     res.json({ updatedDoc: updated, status: "ok", message: "Profile updated" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+const getSingleDoctor = async (req, res) => {
+  try {
+    const docId = mongoose.Types.ObjectId(req.params.id);
+    console.log(docId);
+    const doctor = await Doctor.findOne({ _id: docId }).populate(
+      "specialization"
+    );
+    res.json({ doctorDetails: doctor, status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+const getAppointmentRequests = async (req, res) => {
+  try {
+    console.log("inside backend doc controllers");
+    const docId = mongoose.Types.ObjectId(req.params.id);
+    console.log(docId);
+    const appointmentRequests = await Appointments.find({ doctorId: docId });
+    console.log(appointmentRequests);
+    if (appointmentRequests) {
+      return res.json({
+        appointmentDetails: appointmentRequests,
+        status: "ok",
+      });
+    } else {
+      return res.json({ message: "No appointments till now" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+const updateAppointmentStatus = async (req, res) => {
+  try {
+    const { appointmentId, status } = req.body;
+    console.log(req.body);
+    console.log("inside backend");
+    const appointment = await Appointments.findByIdAndUpdate(appointmentId, {
+      status,
+    });
+    console.log(appointment);
+    res
+      .status(200)
+      .send({ message: "Appointment status updated", status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+const getDoctorDetails = async (req, res) => {
+  try {
+    const docId = req.params.id
+    console.log(docId);
+    console.log("inside backend");
+    const doctor = await Doctor.findById(docId)
+    console.log(doctor);
+    res
+      .status(200)
+      .send({ doctorDetails: doctor, status: "ok" });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -134,4 +202,8 @@ module.exports = {
   getDoctorByCategory,
   getDoctorProfile,
   updateDoctorProfile,
+  getSingleDoctor,
+  getAppointmentRequests,
+  updateAppointmentStatus,
+  getDoctorDetails
 };

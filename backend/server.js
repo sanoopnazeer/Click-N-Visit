@@ -4,6 +4,8 @@ const connectDB = require('./config/connection')
 const userRoutes = require('./routes/userRoutes')
 const adminRoutes = require('./routes/adminRoutes')
 const doctorRoutes = require('./routes/doctorRoutes')
+const conversationRoutes = require('./routes/conversationRoutes')
+const messageRoutes = require('./routes/messageRoutes')
 const { errorHandler, notFound } = require('./middlewares/errorMiddleware')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -25,6 +27,8 @@ app.get('/', (req, res) => {
 app.use('/', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/doctor', doctorRoutes)
+app.use('/conversation', conversationRoutes)
+app.use('/message', messageRoutes)
 
 app.use(notFound);
 app.use(errorHandler)

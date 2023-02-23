@@ -145,6 +145,7 @@ import {
   MDBIcon,
   MDBSpinner,
   MDBValidationItem,
+  MDBDropdown,
 } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -161,7 +162,8 @@ const initialState = {
 const Register = () => {
   const [formValue, setFormValue] = useState(initialState);
   const { loading, error } = useSelector((state) => ({ ...state.auth }));
-  const { firstname, lastname, email, password, confirmPassword } = formValue;
+  const { firstname, lastname, gender, age, email, password, confirmPassword } =
+    formValue;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -171,11 +173,19 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(password !== confirmPassword){
-      return toast.error("Password does not match")
+    if (password !== confirmPassword) {
+      return toast.error("Password does not match");
     }
-    if(firstname && lastname && email && password && confirmPassword){
-      dispatch(userRegister({formValue, navigate, toast}))
+    if (
+      firstname &&
+      lastname &&
+      gender &&
+      age &&
+      email &&
+      password &&
+      confirmPassword
+    ) {
+      dispatch(userRegister({ formValue, navigate, toast }));
     }
   };
   const onInputChange = (e) => {
@@ -190,7 +200,7 @@ const Register = () => {
         padding: "15px",
         maxWidth: "450px",
         alignContent: "center",
-        marginTop: "120px",
+        marginTop: "50px",
       }}
     >
       <MDBCard alignment="center">
@@ -226,6 +236,46 @@ const Register = () => {
                   type="text"
                   value={lastname}
                   name="lastname"
+                  onChange={onInputChange}
+                  required
+                  invalid
+                />
+              </div>
+            </MDBValidationItem>
+            <MDBValidationItem
+              className="col-md-12"
+              feedback="Please provide your gender"
+              invalid
+            >
+              <div className="col-md-12">
+                <MDBDropdown>
+                  {/* <label for="Specialization">Specialization</label> */}
+                  <select
+                    class="form-select"
+                    name="gender"
+                    area-label="Default select example"
+                    onChange={onInputChange}
+                  >
+                    <option value="" disabled selected>
+                      Gender
+                    </option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </MDBDropdown>
+              </div>
+            </MDBValidationItem>
+            <MDBValidationItem
+              className="col-md-12"
+              feedback="Please provide your age"
+              invalid
+            >
+              <div className="col-md-12">
+                <MDBInput
+                  label="Age"
+                  type="age"
+                  value={age}
+                  name="age"
                   onChange={onInputChange}
                   required
                   invalid
@@ -300,7 +350,7 @@ const Register = () => {
         </MDBCardBody>
         <MDBCardFooter>
           <Link to="/login">
-            <p>Already have an account?  Login here</p>
+            <p>Already have an account? Login here</p>
           </Link>
         </MDBCardFooter>
       </MDBCard>

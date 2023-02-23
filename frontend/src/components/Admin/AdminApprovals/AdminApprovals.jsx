@@ -36,6 +36,10 @@ const AdminApprovals = () => {
       selector: (row) => row.email,
     },
     {
+      name: "License Number",
+      selector: (row) => row.license,
+    },
+    {
       name: "Specialization",
       selector: (row) => row.specialization.category,
     },

@@ -9,3 +9,9 @@ export const axiosAdminInstance = axios.create({
 export const axiosDoctorInstance = axios.create({
   baseURL: 'http://localhost:5000/doctor',
 });
+export const axiosMessageInstance = axios.create({
+  baseURL: 'http://localhost:5000/message',
+});
+export const axiosConversationInstance = axios.create({
+  baseURL: 'http://localhost:5000/conversation',
+});

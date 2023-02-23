@@ -25,7 +25,8 @@ const FindDoctorBanner = () => {
                   <img className="image" src={BannerImage} alt=""></img>
               </div>
           </div>
-      </div><div className="content-container" id="content-container">
+      </div>
+      <div className="content-container" id="content-container">
               <div className="content">
                   <div className="faq">
                       <p>WHAT DO WE DO FOR YOU ?</p>

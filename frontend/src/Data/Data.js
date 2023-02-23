@@ -17,14 +17,19 @@ export const SidebarData = [
     page: "dashboard",
   },
   {
+    icon: UilClipboardAlt,
+    heading: "Categories",
+    page: "categories",
+  },
+  {
     icon: UilPackage,
     heading: "Approvals",
     page: "approvals"
   },
   {
-    icon: UilClipboardAlt,
-    heading: "Categories",
-    page: "categories",
+    icon: UilPackage,
+    heading: "All Appointments",
+    page: "appointments"
   },
   {
     icon: UilUsersAlt,
@@ -41,11 +46,11 @@ export const SidebarData = [
   //   heading: "Lawyer Management",
   //   page: "lawyers"
   // },
-  {
-    icon: UilUsersAlt,
-    heading: "Teacher Management",
-    page: "teachers"
-  },
+  // {
+  //   icon: UilUsersAlt,
+  //   heading: "Teacher Management",
+  //   page: "teachers"
+  // },
   // {
   //   icon: UilUsersAlt,
   //   heading: "Trainer Management",

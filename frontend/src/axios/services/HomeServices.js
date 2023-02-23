@@ -79,3 +79,88 @@ export const doctorRegister = createAsyncThunk("doctor/doctorSignup", async({for
         return rejectWithValue(err.response.data)
     }
 })
+
+export const getUserProfile = async (token, userId) => {
+  console.log(userId)
+  console.log('inside home services userid')
+  const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosUserInstance.get(`/getUserProfile/${userId}`, {config });
+    if (data.status) {
+      return data;
+    }
+}
+
+export const updateUserProfile = async (formData, userId) => {
+  console.log(userId)
+  console.log('inside home services userid')
+  const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer ",
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosUserInstance.post(`/updateUserProfile/${userId}`, {formData, config });
+    if (data.status) {
+      return data;
+    }
+}
+
+export const getUserAppointments = async (token, userId) => {
+    console.log(userId)
+    console.log('inside home services userid')
+    const config = {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axiosUserInstance.get(`/view-appointments/${userId}`, {config });
+      if (data.status) {
+        return data;
+      }
+}
+
+export const placeBooking = async (token, bookingData, userId) => {
+    console.log('in booking');
+    console.log(token);
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axiosUserInstance.post(`/payment/${userId}`, bookingData, config);
+    if (data) {
+      return data;
+    }
+  };
+
+  export const orderVerifyPayment = async (token, res, order) => {
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    };
+    const value = {};
+    value.res = res;
+    value.order = order;
+    const { data } = await axiosUserInstance.post(
+      '/verifyPayment',
+      value,
+      config
+    );
+    if (data.status) {
+      return data;
+    }
+  };

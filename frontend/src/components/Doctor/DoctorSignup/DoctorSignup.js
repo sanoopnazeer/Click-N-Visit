@@ -33,7 +33,8 @@ const initialState = {
   confirmPassword: "",
   experience: "",
   feesPerConsultation: "",
-  timings: ""
+  timings: "",
+  license: ""
 };
 
 const DoctorRegister = () => {
@@ -53,11 +54,12 @@ const DoctorRegister = () => {
     experience,
     feesPerConsultation,
     timings,
+    license
   } = formValue;
 
   const timing = timings && [
-    moment(timings[0], "HH:mm"),
-    moment(timings[1], "HH:mm"),
+    moment(timings[0], "h:mm a"),
+    moment(timings[1], "h:mm a"),
   ];
 
   console.log(timing);
@@ -93,7 +95,8 @@ const DoctorRegister = () => {
       confirmPassword &&
       experience &&
       feesPerConsultation &&
-      timings
+      timings &&
+      license
     ) {
       dispatch(doctorRegister({ formValue, navigate, toast }));
     }
@@ -248,6 +251,23 @@ const DoctorRegister = () => {
               </MDBValidationItem>
               <MDBValidationItem
                 className="col-md-6"
+                feedback="Please provide your License number"
+                invalid
+              >
+                <div className="col-md-12">
+                  <MDBInput
+                    label="License number"
+                    type="license"
+                    value={license}
+                    name="license"
+                    onChange={onInputChange}
+                    required
+                    invalid
+                  />
+                </div>
+              </MDBValidationItem>
+              <MDBValidationItem
+                className="col-md-6"
                 feedback="Please provide your experience"
                 invalid
               >
@@ -264,7 +284,7 @@ const DoctorRegister = () => {
                 </div>
               </MDBValidationItem>
               <MDBValidationItem
-                className="col-md-12"
+                className="col-md-6"
                 feedback="Please provide your feesPerConsultation"
                 invalid
               >
@@ -300,12 +320,12 @@ const DoctorRegister = () => {
                           onInputChange({
                             target: {
                               name: "timings",
-                              value: value.map((time) => time.format("HH:mm")),
+                              value: value.map((time) => time.format("h:mm a")),
                             },
                           });
                         }}
                         value={timing}
-                        format="HH:mm"
+                        format="h:mm a"
                       />
                     </div>
               </MDBValidationItem>

@@ -7,6 +7,8 @@ import UserInfo from "../../components/Admin/AdminUserInfo/UserInfo";
 import DoctorInfo from "../../components/Admin/AdminDoctorInfo/DoctorInfo";
 import AdminApprovals from "../../components/Admin/AdminApprovals/AdminApprovals";
 import Categories from "../../components/Admin/CategoryManagement/Categories";
+import ViewAppointments from "../user/ViewAppointments";
+import AllAppoinments from "../../components/Admin/AdminAllAppointments/AllAppoinments";
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -55,8 +57,9 @@ const AdminHome = () => {
         <AppGlass>
           <Sidebar setPage={setPage} />
           {page === "dashboard" && <MainDash />}
-          {page === "approvals" && <AdminApprovals />}
           {page === "categories" && <Categories />}
+          {page === "approvals" && <AdminApprovals />}
+          {page === "appointments" && <AllAppoinments />}
           {page === "users" && <UserInfo />}
           {page === "doctors" && <DoctorInfo />}
         </AppGlass>

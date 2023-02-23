@@ -167,3 +167,16 @@ export const deleteCategory = async (token, catId) => {
     return data;
   }
 }
+
+export const getAllAppointments = async (token) => {
+  const config = {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    }}
+  const { data } = await axiosAdminInstance.get(`/allAppointments`, config)
+  if(data.status){
+    return data;
+  }
+}

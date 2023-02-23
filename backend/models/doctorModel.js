@@ -24,6 +24,10 @@ const doctorSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category'
     },
+    license: {
+      type: String,
+      required: [true, 'license is required']
+    },
     experience: {
       type: String,
       required: [true, 'Experience is required']

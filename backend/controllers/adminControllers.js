@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Doctor = require("../models/doctorModel");
 const Category = require("../models/CategoryModel");
+const Appointments = require('../models/appointmentModel')
 
 const adminSignin = async (req, res) => {
   const { email, password } = req.body;
@@ -189,6 +190,18 @@ const deleteCategory = async (req, res) => {
   }
 };
 
+const allAppointments = async (req, res) => {
+  try{
+    const appointments = await Appointments.find()
+    console.log(appointments);
+    res.json({allAppointments: appointments, status: 'ok'})
+  }catch(error){
+    console.log(error);
+    res.status(500).json(error)
+  }
+}
+
+
 module.exports = {
   adminSignin,
   adminSignup,
@@ -203,4 +216,5 @@ module.exports = {
   addCategory,
   getCategories,
   deleteCategory,
+  allAppointments
 };

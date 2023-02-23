@@ -43,6 +43,14 @@ const UserInfo = () => {
       selector: (row) => row.email,
     },
     {
+      name: "Gender",
+      selector: (row) => row.gender,
+    },
+    {
+      name: "Age",
+      selector: (row) => row.age,
+    },
+    {
       name: "Block/Unblock",
       selector: (row) => {
         return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getDoctorProfile,
   updateDoctorProfile,
@@ -38,8 +38,8 @@ const DoctorProfile = () => {
   } = formValue;
 
   const timing = timings && [
-    moment(timings[0], "h:mm A"),
-    moment(timings[1], "h:mm A"),
+    moment(timings[0], "h:mm a"),
+    moment(timings[1], "h:mm a"),
   ];
   console.log(timing);
   // const {doctor} = useSelector((state) => (state.doctor))
@@ -92,7 +92,9 @@ const DoctorProfile = () => {
 
   return (
     <Layout>
-      <h1>MANAGE YOUR PROFILE</h1>
+      <div className="p-2">
+        <h1>MANAGE YOUR PROFILE</h1>
+      </div>
       {doctor && (
         <>
           <div
@@ -240,12 +242,12 @@ const DoctorProfile = () => {
                           onInputChange({
                             target: {
                               name: "timings",
-                              value: value.map((time) => time.format("h:mm A")),
+                              value: value.map((time) => time.format("h:mm a")),
                             },
                           });
                         }}
                         value={timing}
-                        format="HH:mm"
+                        format="h:mm a"
                       />
                     </div>
                   </MDBValidationItem>

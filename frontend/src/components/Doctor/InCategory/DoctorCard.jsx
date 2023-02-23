@@ -10,8 +10,12 @@ import {
     MDBCol,
     MDBBtn,
   } from "mdb-react-ui-kit";
+import { useNavigate } from 'react-router-dom';
 
 const DoctorCard = (props) => {
+
+  const navigate = useNavigate();
+
   return (
         <MDBRow className="row-cols-1 row-cols-md-1 g-4">
           <MDBCol>
@@ -25,7 +29,7 @@ const DoctorCard = (props) => {
                   />
                   <MDBCardBody>
                     <MDBCardTitle>
-                      {props.doctor.firstname + " " + props.doctor.lastname}
+                      Dr. {props.doctor.firstname + " " + props.doctor.lastname}
                     </MDBCardTitle>
                     <MDBCardText>
                       <b>{props.doctor.specialization.category}</b>
@@ -37,9 +41,9 @@ const DoctorCard = (props) => {
                       <p>Fees per Consultation : Rs. {props.doctor.feesPerConsultation}</p>
                     </MDBCardText>
                     <MDBCardText>
-                      <p>Timings : {props.doctor.timings} </p>
+                      {/* <p>Timings : {props.doctor.timings} </p> */}
                     </MDBCardText>
-                    <MDBBtn href="#">Book an appointment</MDBBtn>
+                    <MDBBtn onClick={() => navigate(`/single-doctor/${props.doctor._id}`)}>View Profile</MDBBtn>
                   </MDBCardBody>
                 </MDBCard>
                     {/* )} */}

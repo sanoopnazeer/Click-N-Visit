@@ -8,12 +8,14 @@ import { setLogout } from "../redux/features/authSlice";
 
 const Navbar = () => {
   // const [show, setShow] = useState(false)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(setLogout())
-  }
-  const { user } = useSelector((state) => ({...state.auth}))
+    dispatch(setLogout());
+  };
+  // const { user } = useSelector((state) => ({ ...state.auth }));
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Stack
       direction="row"
@@ -26,12 +28,14 @@ const Navbar = () => {
         mt: { sm: "32px", xs: "20px" },
         // justifyContent: 'none'
       }}
-      >
-        
-      <Link to="/" style={{
+    >
+      <Link
+        to="/"
+        style={{
           textDecoration: "none",
           color: "#3A1212",
-        }}>
+        }}
+      >
         <img
           src={Logo}
           alt="Logo"
@@ -40,11 +44,22 @@ const Navbar = () => {
             height: "80px",
           }}
         />
-        <Typography sx={{
-          fontWeight:"bold"
-        }} fontSize="20px">CLICK N VISIT</Typography>
+        <Typography
+          sx={{
+            fontWeight: "bold",
+          }}
+          fontSize="20px"
+        >
+          CLICK N VISIT
+        </Typography>
       </Link>
-      <Stack direction="row" gap="40px" fontSize="24px" alignItems="flex-center" pr="40px">
+      <Stack
+        direction="row"
+        gap="40px"
+        fontSize="24px"
+        alignItems="flex-center"
+        pr="40px"
+      >
         <Link
           to="/"
           style={{
@@ -54,19 +69,41 @@ const Navbar = () => {
         >
           Home
         </Link>
-        { user?.userExists?._id ? (
-          <><p>{user?.userExists?.firstname}</p><Link
-            to="/"
-            onClick={handleLogout}
-            style={{
-              textDecoration: "none",
-              color: "#3A1212",
-            }}
-          >
-            Logout
-          </Link></>
-        ) : ( 
-          <><Link
+        {user?.userExists ? (
+          <>
+            {" "}
+            <Link
+              to="/view-appointments"
+              style={{
+                textDecoration: "none",
+                color: "#3A1212",
+              }}
+            >
+              Appointments
+            </Link>
+            <Link
+              to="/user-profile"
+              style={{
+                textDecoration: "none",
+                color: "#3A1212",
+              }}
+            >
+              {user?.userExists?.firstname}
+            </Link>
+            <Link
+              to="/"
+              onClick={handleLogout}
+              style={{
+                textDecoration: "none",
+                color: "#3A1212",
+              }}
+            >
+              Logout
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link
               to="/login"
               style={{
                 textDecoration: "none",
@@ -74,15 +111,17 @@ const Navbar = () => {
               }}
             >
               Login
-            </Link><Link
+            </Link>
+            <Link
               to="/signup"
               style={{
                 textDecoration: "none",
                 color: "#3A1212",
               }}
             >
-                Signup
-              </Link></>
+              Signup
+            </Link>
+          </>
         )}
       </Stack>
     </Stack>
