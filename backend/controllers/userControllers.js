@@ -110,6 +110,7 @@ const getUserProfile = async (req, res) => {
 }
 
 const updateUserProfile = async (req, res) => {
+  console.log(req.body.formValue);
   try {
     const userId = mongoose.Types.ObjectId(req.params.id);
     const updated = await User.findOneAndUpdate(

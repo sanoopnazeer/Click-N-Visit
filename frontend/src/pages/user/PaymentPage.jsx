@@ -74,8 +74,10 @@ const PaymentPage = () => {
         color: "#ED5359",
       },
     };
+
     const rzpay = new Razorpay(options);
     rzpay.open();
+    
     async function verifiyPayment(res, order) {
         const verification = await orderVerifyPayment(token, res, order);
         console.log("above is verification")

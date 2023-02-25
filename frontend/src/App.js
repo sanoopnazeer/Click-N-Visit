@@ -11,7 +11,7 @@ import Login from './pages/user/Login'
 import Signup from './pages/user/Signup'
 import AdminHome from './pages/admin/AdminHome';
 import AdminLogin from './pages/admin/AdminLogin';
-import PrivateRoutes from './utils/PrivateRoutes';
+import UserPrivateRoutes from './utils/UserPrivateRoutes';
 import './App.css'
 
 import { useDispatch } from 'react-redux';
@@ -30,7 +30,9 @@ import PaymentPage from './pages/user/PaymentPage';
 import Messenger from './pages/messenger/Messenger';
 import PaymentSuccessPage from './pages/user/PaymentSuccessPage';
 import UserProfile from './pages/user/UserProfile';
-
+import MessageRequestsPage from './pages/doctor/MessageRequestsPage';
+import DoctorPrivateRoutes from './utils/DoctorPrivateRoutes';
+import AdminPrivateRoutes from './utils/AdminPrivateRoutes';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -46,24 +48,32 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/view-appointments" element={<ViewAppointments />} />
-        <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/doctorSignup" element={<DoctorSignup />} />
         <Route path="/doctorLogin" element={<DoctorLogin />} />
-        <Route path="/doctorHome" element={<DoctorHome />} />
-        <Route path="/doctorProfile/:docId" element={<DoctorProfile />} />
-        <Route path="/appointment-requests" element={<AppointmentRequests />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/adminSignup" element={<AdminSignup />} />
         <Route path="/findDoctor" element={<FindDoctor />} />
         <Route path="/view-doctors/:catId" element={<InCategoryDoctorsList />} />
         <Route path="/single-doctor/:docId" element={<DoctorBooking />} />
+        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/doctorProfile/:docId" element={<DoctorProfile />} />
+
+        <Route element={<AdminPrivateRoutes />}>
+            <Route path="/adminHome" element={<AdminHome />}/>
+        </Route>
+
+        <Route element={<UserPrivateRoutes />}>
+        <Route path="/view-appointments" element={<ViewAppointments />} />
         <Route path="/payment-page/:id" element={<PaymentPage />} />
         <Route path="/paymentSuccess" element={<PaymentSuccessPage />} />
         <Route path="/messenger" element={<Messenger />} />
-        {/* <Route element={<PrivateRoutes />}> */}
-            <Route path="/adminHome" element={<AdminHome />}/>
-        {/* </Route> */}
+        </Route>
+
+        <Route element={<DoctorPrivateRoutes />}>
+        <Route path="/doctorHome" element={<DoctorHome />} />
+        <Route path="/appointment-requests" element={<AppointmentRequests />} />
+        <Route path="/message-requests" element={<MessageRequestsPage />} />
+        </Route>
       </Routes>
       <Footer />
     </Box>

@@ -28,15 +28,15 @@ export const getDoctorByCategory = async (catId) => {
     }
   };
 
-  export const updateDoctorProfile = async ( formData, docId ) => {
+  export const updateDoctorProfile = async ( formData, token, docId ) => {
     const config = {
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer ",
+        Authorization: "Bearer " +token,
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosDoctorInstance.post(`/updateDoctorProfile/${docId}`, {formData, config });
+    const { data } = await axiosDoctorInstance.post(`/updateDoctorProfile/${docId}`, {formData}, config);
     if (data.status) {
       return data;
     }
@@ -91,15 +91,22 @@ export const getDoctorByCategory = async (catId) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosDoctorInstance.get(`/getAppointmentRequests/${docId}`, {config });
+    const { data } = await axiosDoctorInstance.get(`/getAppointmentRequests/${docId}`, config);
     if (data.status) {
       return data;
     }
   }
 
-  export const updateStatus = async (appointmentData) => {
+  export const updateStatus = async (appointmentData, token) => {
+        const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
     console.log(appointmentData)
-    const { data } = await axiosDoctorInstance.post(`/update-appointment-status`,appointmentData)
+    const { data } = await axiosDoctorInstance.post(`/update-appointment-status`,appointmentData, config)
     if(data.status){
       return data
     }

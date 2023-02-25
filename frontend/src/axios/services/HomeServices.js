@@ -82,31 +82,30 @@ export const doctorRegister = createAsyncThunk("doctor/doctorSignup", async({for
 
 export const getUserProfile = async (token, userId) => {
   console.log(userId)
+  console.log(token)
   console.log('inside home services userid')
   const config = {
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + token,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosUserInstance.get(`/getUserProfile/${userId}`, {config });
-    if (data.status) {
+    const { data } = await axiosUserInstance.get(`/getUserProfile/${userId}`, config );
+    if (data) {
       return data;
     }
 }
 
-export const updateUserProfile = async (formData, userId) => {
-  console.log(userId)
-  console.log('inside home services userid')
+export const updateUserProfile = async (formData, token, userId) => {
   const config = {
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer ",
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosUserInstance.post(`/updateUserProfile/${userId}`, {formData, config });
+    const { data } = await axiosUserInstance.post(`/updateUserProfile/${userId}`, {formData}, config );
     if (data.status) {
       return data;
     }
@@ -122,7 +121,7 @@ export const getUserAppointments = async (token, userId) => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axiosUserInstance.get(`/view-appointments/${userId}`, {config });
+      const { data } = await axiosUserInstance.get(`/view-appointments/${userId}`, config );
       if (data.status) {
         return data;
       }

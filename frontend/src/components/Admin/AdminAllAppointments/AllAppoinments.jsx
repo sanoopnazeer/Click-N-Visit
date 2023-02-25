@@ -8,9 +8,9 @@ import { updateStatus } from "../../../axios/services/DoctorServices";
 const AllAppoinments = () => {
 
     const [appointments, setAppointments] = useState([])
+    const token = JSON.parse(localStorage.getItem('admin')).token;
 
     const fetchData = async () => {
-        const token = localStorage.getItem('admin')
         const data = await getAllAppointments(token);
         setAppointments(data.allAppointments)
         console.log(appointments)
@@ -24,7 +24,7 @@ const AllAppoinments = () => {
     const handleSubmit = async (row, status) => {
         try {
         console.log(status)
-      const response = await updateStatus({ appointmentId: row._id, status });
+      const response = await updateStatus({ appointmentId: row._id, status }, token);
       console.log(response)
       if (response.status) {
         toast.success(response.message);

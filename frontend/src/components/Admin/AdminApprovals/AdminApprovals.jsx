@@ -7,15 +7,14 @@ import {
 
 const AdminApprovals = () => {
   const [approvals, setApprovals] = useState([]);
+  const token = JSON.parse(localStorage.getItem("admin")).token;
 
   const fetchData = async () => {
-    const token = localStorage.getItem("admin");
     const data = await pendingApprovals(token);
     setApprovals(data.approvalDetails);
   };
 
   const Approve = async (consId) => {
-    const token = localStorage.getItem("admin");
     const data = await approve(token, consId);
     if (data.status) {
       fetchData();

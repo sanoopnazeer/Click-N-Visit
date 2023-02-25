@@ -159,7 +159,7 @@ const approve = async (req, res) => {
 
 const addCategory = async (req, res) => {
   try {
-    const { category, type } = req.body;
+    const { category } = req.body;
     const catExists = await Category.findOne({ category });
     if (catExists) {
       return res.status(404).json({ message: `${category} already exists` });

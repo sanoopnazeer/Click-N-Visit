@@ -10,8 +10,8 @@ const ViewAppointments = () => {
   const [appointments, setAppointments] = useState("");
 
   const fetchData = async () => {
-    const token = JSON.parse(localStorage.getItem("user"));
-    const userId = token.userExists._id;
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    const userId = JSON.parse(localStorage.getItem("user")).userExists._id;
     console.log(userId);
     const data = await getUserAppointments(token, userId);
     setAppointments(data.appointmentsDetails);

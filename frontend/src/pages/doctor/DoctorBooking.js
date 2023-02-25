@@ -22,10 +22,11 @@ const DoctorBooking = () => {
 
   const handleAvailability = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
+
     if (user) {
       const response = await checkAvailability(user, { docId, date, time });
-      console.log(response)
-      console.log("availablity response above")
+      console.log(response);
+      console.log("availablity response above");
       if (response.success) {
         setIsAvailable(response.appointmentData);
         toast.success(response.message);
@@ -34,7 +35,8 @@ const DoctorBooking = () => {
       }
     }
   };
-  console.log(isAvailable)
+  console.log(isAvailable);
+  console.log("above is isavailbale");
 
   // const handleBooking = async () => {
   //   // setIsAvailable(true)
@@ -57,7 +59,6 @@ const DoctorBooking = () => {
   //       navigate('/payment-page')
   //     }
 
-      
   //   } else {
   //     navigate("/login");
   //     toast.error("You need to login first");
@@ -141,15 +142,21 @@ const DoctorBooking = () => {
             >
               Check Availability
             </button>
-            <Link to={`/payment-page/${encodeURIComponent(JSON.stringify(isAvailable))}`}>
-              <button
-                type="button"
-                class="btn btn-dark btn-lg"
-                // onClick={handleBooking}
+            {isAvailable && (
+              <Link
+                to={`/payment-page/${encodeURIComponent(
+                  JSON.stringify(isAvailable)
+                )}`}
               >
-                Book now
-              </button>
+                <button
+                  type="button"
+                  class="btn btn-dark btn-lg"
+                  // onClick={handleBooking}
+                >
+                  Book now
+                </button>
               </Link>
+            )}
           </div>
         </div>
       </div>

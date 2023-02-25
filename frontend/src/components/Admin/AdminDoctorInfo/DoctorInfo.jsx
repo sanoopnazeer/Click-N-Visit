@@ -4,9 +4,9 @@ import { blockDoctor, getDoctorInfo, unblockDoctor } from '../../../axios/servic
 
 const DoctorInfo = () => {
   const [details, setDetails] = useState([])
+  const token = JSON.parse(localStorage.getItem("admin")).token;
   
   const fetchData = async () => {
-    const token = localStorage.getItem("admin")
     const data = await getDoctorInfo(token)
     setDetails(data.doctorDetails)
   }
@@ -16,7 +16,6 @@ const DoctorInfo = () => {
   }, [])
 
   const block = async(doctorId) => {
-    const token = localStorage.getItem("admin")
     const data = await blockDoctor(token, doctorId)
     if(data.status){
       fetchData()
@@ -24,7 +23,6 @@ const DoctorInfo = () => {
   }
 
   const unblock = async(doctorId) => {
-    const token = localStorage.getItem("admin")
     const data = await unblockDoctor(token, doctorId)
     if(data.status){
       fetchData()

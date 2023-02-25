@@ -1,20 +1,21 @@
 var express = require('express');
 var router = express.Router();
-const { adminSignin, adminSignup, allUsers, unblockUser, blockUser, allDoctors, blockDoctor, unblockDoctor, pendingApprovals, approve, addCategory, getCategories, deleteCategory, allAppointments } = require('../controllers/adminControllers')
+const { adminSignin, adminSignup, allUsers, unblockUser, blockUser, allDoctors, blockDoctor, unblockDoctor, pendingApprovals, approve, addCategory, getCategories, deleteCategory, allAppointments } = require('../controllers/adminControllers');
+const { adminProtect } = require('../middlewares/authMiddleware');
 
 router.post("/adminLogin", adminSignin);
 router.post("/adminSignup", adminSignup);
-router.get('/getUsers', allUsers)
-router.get('/blockUser/:id', blockUser)
-router.get('/unblockUser/:id', unblockUser)
-router.get('/getDoctors', allDoctors)
-router.get('/blockDoctor/:id', blockDoctor)
-router.get('/unblockDoctor/:id', unblockDoctor)
-router.get('/pendingApprovals', pendingApprovals)
-router.get('/approve/:id', approve)
-router.post('/addCategory', addCategory)
-router.get('/getCategories', getCategories)
-router.get('/deleteCategory/:id', deleteCategory)
-router.get('/allAppointments', allAppointments)
+router.get('/getUsers',adminProtect, allUsers)
+router.get('/blockUser/:id',adminProtect, blockUser)
+router.get('/unblockUser/:id',adminProtect, unblockUser)
+router.get('/getDoctors',adminProtect, allDoctors)
+router.get('/blockDoctor/:id',adminProtect, blockDoctor)
+router.get('/unblockDoctor/:id',adminProtect, unblockDoctor)
+router.get('/pendingApprovals',adminProtect, pendingApprovals)
+router.get('/approve/:id',adminProtect, approve)
+router.get('/getCategories',adminProtect, getCategories)
+router.post('/addCategory',adminProtect, addCategory)
+router.get('/deleteCategory/:id',adminProtect, deleteCategory)
+router.get('/allAppointments',adminProtect, allAppointments)
 
 module.exports = router;

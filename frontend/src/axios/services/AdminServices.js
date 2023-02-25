@@ -1,6 +1,5 @@
 import { axiosAdminInstance } from "../axios";
 
-
 export const getUserInfo = async (token) => {
   const config = {
     headers: {
@@ -102,10 +101,7 @@ export const pendingApprovals = async (token) => {
       "Content-Type": "application/json",
     },
   };
-  const { data } = await axiosAdminInstance.get(
-    "/pendingApprovals",
-    config
-  );
+  const { data } = await axiosAdminInstance.get("/pendingApprovals", config);
   if (data.status) {
     return data;
   }
@@ -119,24 +115,25 @@ export const approve = async (token, consId) => {
       "Content-Type": "application/json",
     },
   };
-  const { data } = await axiosAdminInstance.get(
-    `/approve/${consId}`,
-    config
-  );
+  const { data } = await axiosAdminInstance.get(`/approve/${consId}`, config);
   if (data.status) {
     return data;
   }
 };
 
-export const addCategory = async ( category, type) => {
+export const addCategory = async (category, token) => {
   const config = {
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer ",
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   };
-  const { data } = await axiosAdminInstance.post(`/addCategory`, {category, type,config});
+  const { data } = await axiosAdminInstance.post(
+    `/addCategory`,
+    { category },
+    config
+  );
   if (data.status) {
     return data;
   }
@@ -148,12 +145,13 @@ export const getCategories = async (token) => {
       Accept: "application/json",
       Authorization: "Bearer " + token,
       "Content-Type": "application/json",
-    }}
-  const { data } = await axiosAdminInstance.get(`/getCategories`, config)
-  if(data.status){
+    },
+  };
+  const { data } = await axiosAdminInstance.get(`/getCategories`, config);
+  if (data.status) {
     return data;
   }
-}
+};
 
 export const deleteCategory = async (token, catId) => {
   const config = {
@@ -161,12 +159,16 @@ export const deleteCategory = async (token, catId) => {
       Accept: "application/json",
       Authorization: "Bearer " + token,
       "Content-Type": "application/json",
-    }}
-  const { data } = await axiosAdminInstance.get(`/deleteCategory/${catId}`, config)
-  if(data.status){
+    },
+  };
+  const { data } = await axiosAdminInstance.get(
+    `/deleteCategory/${catId}`,
+    config
+  );
+  if (data.status) {
     return data;
   }
-}
+};
 
 export const getAllAppointments = async (token) => {
   const config = {
@@ -174,9 +176,10 @@ export const getAllAppointments = async (token) => {
       Accept: "application/json",
       Authorization: "Bearer " + token,
       "Content-Type": "application/json",
-    }}
-  const { data } = await axiosAdminInstance.get(`/allAppointments`, config)
-  if(data.status){
+    },
+  };
+  const { data } = await axiosAdminInstance.get(`/allAppointments`, config);
+  if (data.status) {
     return data;
   }
-}
+};

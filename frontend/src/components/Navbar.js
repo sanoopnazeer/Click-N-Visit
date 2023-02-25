@@ -14,7 +14,7 @@ const Navbar = () => {
     dispatch(setLogout());
   };
   // const { user } = useSelector((state) => ({ ...state.auth }));
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem('user'))
 
   return (
     <Stack
@@ -69,7 +69,7 @@ const Navbar = () => {
         >
           Home
         </Link>
-        {user?.userExists ? (
+        {user?.userExists? (
           <>
             {" "}
             <Link
@@ -82,13 +82,22 @@ const Navbar = () => {
               Appointments
             </Link>
             <Link
+              to="/messenger"
+              style={{
+                textDecoration: "none",
+                color: "#3A1212",
+              }}
+            >
+              Messages
+            </Link>
+            <Link
               to="/user-profile"
               style={{
                 textDecoration: "none",
                 color: "#3A1212",
               }}
             >
-              {user?.userExists?.firstname}
+            {user?.userExists?.firstname}
             </Link>
             <Link
               to="/"

@@ -23,20 +23,19 @@ const UserProfile = () => {
   const { firstname, lastname, email, gender, age } = formValue;
 
   const userId = JSON.parse(localStorage.getItem("user")).userExists?._id;
-  console.log(userId+"userID")
-
+  const token = JSON.parse(localStorage.getItem("user")).token;
+  
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("user");
       const data = await getUserProfile(token, userId);
       setFormValue(data.userProfile);
     };
     fetchData();
-  }, [userId]);
+  }, [userId, token]);
 
   const handleSubmit = (e) => {
     // e.preventDefault();
-    updateUserProfile({ ...formValue }, userId);
+    updateUserProfile({ ...formValue }, token, userId);
     navigate("/");
     toast.success("Profile updated");
   };

@@ -55,15 +55,15 @@ const DoctorProfile = () => {
   }, [error]);
 
   const { docId } = useParams();
+  const token = JSON.parse(localStorage.getItem("doctor")).token;
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("doctor");
       const data = await getDoctorProfile(token, docId);
       setFormValue(data.doctorProfile);
     };
     fetchData();
-  }, [docId]);
+  }, [docId, token]);
 
   timings && console.log(timings);
 
@@ -78,15 +78,15 @@ const DoctorProfile = () => {
   //   console.log('time above')
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    updateDoctorProfile({ ...formValue }, docId);
+    e.preventDefault();
+    updateDoctorProfile({ ...formValue }, token, docId);
     navigate("/doctorHome");
     toast.success("Profile updated");
   };
 
   const onInputChange = (e) => {
     let { name, value } = e.target;
-    setFormValue({ formValue, [name]: value });
+    setFormValue({ ...formValue, [name]: value });
     console.log(formValue);
   };
 

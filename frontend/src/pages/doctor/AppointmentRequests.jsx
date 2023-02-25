@@ -10,10 +10,10 @@ import Layout from "../../components/Doctor/Layout";
 
 const AppointmentRequests = () => {
   const [appointments, setAppointments] = useState("");
+  const token = JSON.parse(localStorage.getItem("doctor")).token;
 
   const fetchData = async () => {
-    const token = JSON.parse(localStorage.getItem("doctor"));
-    const docId = token?.doctorExists?._id;
+    const docId = JSON.parse(localStorage.getItem("doctor")).doctorExists?._id;
     const data = await getAppointmentRequests(token, docId);
     setAppointments(data.appointmentDetails);
   };
@@ -27,7 +27,7 @@ const AppointmentRequests = () => {
   const handleStatus = async (row, status) => {
     try {
         console.log(status)
-      const response = await updateStatus({ appointmentId: row._id, status });
+      const response = await updateStatus({ appointmentId: row._id, status }, token);
       console.log(response)
       if (response.status) {
         toast.success(response.message);
@@ -46,11 +46,11 @@ const AppointmentRequests = () => {
     },
     {
       name: "Date",
-      selector: (row) => <span>{moment(row.date).format("DD-MM-YYYY")}</span>,
+      selector: (row) => row.date,
     },
     {
       name: "Time",
-      selector: (row) => <span>{moment(row.time).format("h:mm a")}</span>,
+      selector: (row) => row.time,
     },
     {
       name: "Status",
@@ -112,7 +112,7 @@ const AppointmentRequests = () => {
           columns={columns}
           data={appointments}
           fixedHeader
-          fixedHeaderScrollHeight="500px"
+          // fixedHeaderScrollHeight="500px"
           selectableRows
           selectableRowsHighlight
           highlightOnHover

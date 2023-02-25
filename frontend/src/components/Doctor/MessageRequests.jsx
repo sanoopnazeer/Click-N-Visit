@@ -1,26 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
-import Navbar from "../../components/Navbar";
-import "./Messenger.css";
+import "../../pages/messenger/Messenger";
 // import "../../components/Messenger/Conversation.css";
-import Conversation from "../../components/Messenger/conversations/Conversation";
 import Message from "../../components/Messenger/message/Message";
-import ChatBooked from "../../components/Messenger/chatBooked/ChatBooked";
 import { getConversations } from "../../axios/services/ConversationServices";
 import {
   getMessages,
   sendNewMessage,
 } from "../../axios/services/MessageServices";
 import { io } from "socket.io-client";
+import DoctorConvo from "./DoctorConvo";
+import { message } from "antd";
 
-const Messenger = () => {
+const MessageRequests = () => {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const [bookedDoctors, setBookedDoctors] = useState([]);
   const socket = useRef();
-  const user = JSON.parse(localStorage.getItem("user")).userExists;
+  const doctor = JSON.parse(localStorage.getItem("doctor")).doctorExists;
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -41,19 +39,19 @@ const Messenger = () => {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.current.emit("addUser", user._id);
-    socket.current.on("getUsers", (users) => {
-      setBookedDoctors(users)
+    socket.current.emit("addUser", doctor._id);
+    socket.current.on("getUsers", (doctor) => {
+      // console.log(users)
     });
-  }, [user]);
+  }, [doctor]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getConversations(user._id);
+      const data = await getConversations(doctor._id);
       setConversations(data.conversation);
     };
     fetchData();
-  }, [currentChat]);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,17 +65,17 @@ const Messenger = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      sender: user._id,
+      sender: doctor._id,
       text: newMessage,
       conversationId: currentChat._id,
     };
 
     const receiverId = currentChat.members.find(
-      (member) => member !== user._id
+      (member) => member !== doctor._id
     );
 
     socket.current.emit("sendMessage", {
-      senderId: user._id,
+      senderId: doctor._id,
       receiverId,
       text: newMessage,
     });
@@ -90,16 +88,18 @@ const Messenger = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  console.log(newMessage)
+  console.log(message)
+
   return (
     <>
-      <Navbar />
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-          <p className="chatMenuInput" >Previous chats</p>
+            <p className="chatMenuInput" >List of patients</p>
             {conversations.map((convo) => (
               <div onClick={() => setCurrentChat(convo)}>
-                <Conversation conversation={convo} currentUser={user} />
+                <DoctorConvo conversation={convo} currentUser={doctor} />
               </div>
             ))}
           </div>
@@ -109,11 +109,11 @@ const Messenger = () => {
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  <div ref={scrollRef}>
                   {messages.map((msg) => (
-                      <Message message={msg} own={msg.sender === user._id} />
-                      ))}
-                      </div>
+                    <div ref={scrollRef}>
+                      <Message message={msg} own={msg.sender === doctor._id} />
+                    </div>
+                  ))}
                 </div>
                 <div className="chatBoxBottom">
                   <textarea
@@ -135,14 +135,11 @@ const Messenger = () => {
           </div>
         </div>
         <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <p>Below are doctors you booked</p>
-            <ChatBooked bookedDoctors={bookedDoctors} currentUser={user._id} setCurrentChat={setCurrentChat}/>
-          </div>
+          <div className="chatOnlineWrapper"></div>
         </div>
       </div>
     </>
   );
 };
 
-export default Messenger;
+export default MessageRequests;

@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { blockUser, getUserInfo, unblockUser } from "../../../axios/services/AdminServices";
 import DataTable from "react-data-table-component";
-import { Navigate } from "react-router-dom";
 
 const UserInfo = () => {
   const [details, setDetails] = useState([]);
+  const token = JSON.parse(localStorage.getItem("admin")).token;
 
   const fetchData = async () => {
-    const token = localStorage.getItem("admin");
     const data = await getUserInfo(token);
     setDetails(data.userDetails);
     console.log(data.userDetails);
   };
 
   const block = async (userId) => {
-    const token = localStorage.getItem("admin");
     const data = await blockUser(token, userId);
     if (data.status) {
       fetchData();
@@ -22,7 +20,6 @@ const UserInfo = () => {
   };
 
   const unblock = async (userId) => {
-    const token = localStorage.getItem("admin");
     const data = await unblockUser(token, userId);
     if (data.status) {
       fetchData();

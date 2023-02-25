@@ -8,16 +8,18 @@ const AddCategory = (props) => {
     const initialState = {
         category : ""
     }
-    const type = props.type;
-    console.log(type);
+
     const [formValue, setFormValue] = useState(initialState);
     const { category } = formValue;
+    const token = JSON.parse(localStorage.getItem('admin')).token;
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
     //   console.log(formValue);
-        addCategory(category, type);
+        await addCategory(category, token);
+        props.onAdding(category)
     };
+
     const onInputChange = (e) => {
       let { name, value } = e.target;
       setFormValue({ ...formValue, [name]: value });

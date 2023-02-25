@@ -30,9 +30,14 @@ const Layout = ({ children }) => {
       icon: 'fa-solid fa-list'
     },
     {
+      name: 'Messages',
+      path: `/message-requests`,
+      icon: 'fa-solid fa-message'
+    },
+    {
       name: 'Profile',
       path: `/doctorProfile/${doctor?.doctorExists?._id}`,
-      icon: ' fa-solid fa-user'
+      icon: 'fa-solid fa-user'
     }
   ]
 

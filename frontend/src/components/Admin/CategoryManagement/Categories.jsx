@@ -13,9 +13,10 @@ import { deleteCategory, getCategories } from "../../../axios/services/AdminServ
 const Categories = () => {
   const [basicActive, setBasicActive] = useState("tab1");
   const [categories, setCategories] = useState([])
+  const [add, setAdd] = useState('')
+  const token = JSON.parse(localStorage.getItem('admin')).token
 
   const fetchData = async () => {
-    const token = localStorage.getItem('admin')
     const data = await getCategories(token)
     setCategories(data.categoryDetails)
   }
@@ -23,9 +24,12 @@ const Categories = () => {
   useEffect(() => {
     fetchData();
   }, [])
-  
+
+  useEffect(() => {
+    fetchData();
+  }, [add])
+
   const deleteCat = async (catId) => {
-    const token = localStorage.getItem('admin')
     const data = await deleteCategory(token, catId)
     if(data.status){
         fetchData();
@@ -100,8 +104,7 @@ const Categories = () => {
         <MDBTabsContent>
           <MDBTabsPane show={basicActive === "tab1"}>
             {" "}
-            <AddCategory 
-            type= "Doctor"/>
+            <AddCategory onAdding={(newAdd) => setAdd(newAdd)} />
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === "tab2"}>Tab 2 content</MDBTabsPane>
           <MDBTabsPane show={basicActive === "tab3"}>Tab 3 content</MDBTabsPane>

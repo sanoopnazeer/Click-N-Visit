@@ -12,23 +12,24 @@ const {
   getUserProfile,
   updateUserProfile,
 } = require("../controllers/userControllers");
+const { userProtect } = require("../middlewares/authMiddleware");
 
 router.post("/signup", registerUser);
 router.post("/signin", signin);
 
 router.get('/getUserProfile/:id', getUserProfile)
-router.post('/updateUserProfile/:id', updateUserProfile)
+router.post('/updateUserProfile/:id', userProtect, updateUserProfile)
 
 // router.get("/:id/verify/:token", verifyToken)
-
-// BOOK APPOINTMENT
-// router.post('/book-appointment', bookAppointment)
-router.post("/payment/:id", payment);
-router.post("/verifyPayment", verifyPayment);
 
 // CHECK AVAILABILITY
 router.post("/check-availability", checkAvailability);
 
-router.get("/view-appointments/:id", getUserAppointments);
+// BOOK APPOINTMENT
+// router.post('/book-appointment', bookAppointment)
+router.post("/payment/:id", userProtect, payment);
+router.post("/verifyPayment", userProtect, verifyPayment);
+
+router.get("/view-appointments/:id", userProtect, getUserAppointments);
 
 module.exports = router;
