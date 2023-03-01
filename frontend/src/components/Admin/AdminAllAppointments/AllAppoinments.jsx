@@ -6,26 +6,27 @@ import { getAllAppointments } from "../../../axios/services/AdminServices";
 import { updateStatus } from "../../../axios/services/DoctorServices";
 
 const AllAppoinments = () => {
+  const [appointments, setAppointments] = useState([]);
+  const token = JSON.parse(localStorage.getItem("admin")).token;
 
-    const [appointments, setAppointments] = useState([])
-    const token = JSON.parse(localStorage.getItem('admin')).token;
+  const fetchData = async () => {
+    const data = await getAllAppointments(token);
+    setAppointments(data.allAppointments);
+    console.log(appointments);
+  };
 
-    const fetchData = async () => {
-        const data = await getAllAppointments(token);
-        setAppointments(data.allAppointments)
-        console.log(appointments)
-    }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    useEffect(() => {
-      fetchData();
-    }, [])
-
-
-    const handleSubmit = async (row, status) => {
-        try {
-        console.log(status)
-      const response = await updateStatus({ appointmentId: row._id, status }, token);
-      console.log(response)
+  const handleSubmit = async (row, status) => {
+    try {
+      console.log(status);
+      const response = await updateStatus(
+        { appointmentId: row._id, status },
+        token
+      );
+      console.log(response);
       if (response.status) {
         toast.success(response.message);
         fetchData();
@@ -34,60 +35,57 @@ const AllAppoinments = () => {
       console.log(error);
       toast.error("Something went wrong");
     }
-  }
+  };
 
-    const columns = [
-        {
-          name: "Token number",
-          selector: (row) => row._id,
-        },
-        {
-          name: "Date",
-          selector: (row) => row.date,
-        },
-        {
-          name: "Time",
-          selector: (row) => row.time,
-        },
-        {
-          name: "Doctor Approval",
-          selector: (row) => row.status,
-        },
-        {
-            name: "Amount",
-            selector: (row) => row.amount,
-          },
-          {
-            name: "Payment Status",
-            selector: (row) => row.paymentStatus,
-          },
-        {
-          name: "Action",
-          selector: (row) => {
-            return (
-              <div>
-                {" "}
-                {row.status === "pending" ? (
-                  <button
-                    className="btn btn-danger"
-                       onClick={() => handleSubmit(row, "cancelled")}
-                  >
-                    CANCEL
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-danger"
-                    disabled
-                  >
-                    CANCEL
-                  </button>
-                )}
-              </div>
-            );
-          },
-        },
-      ];
-    
+  const columns = [
+    {
+      name: "Token number",
+      selector: (row) => row._id,
+    },
+    {
+      name: "Date",
+      selector: (row) => row.date,
+    },
+    {
+      name: "Time",
+      selector: (row) => row.time,
+    },
+    {
+      name: "Approval",
+      selector: (row) => row.status,
+    },
+    {
+      name: "Amount",
+      selector: (row) => row.amount,
+    },
+    {
+      name: "Payment Status",
+      selector: (row) => row.paymentStatus,
+    },
+    {
+      name: "Action",
+      selector: (row) => {
+        return (
+          <div>
+            {" "}
+            {row.status === "pending" ? (
+              <button
+                className="btn btn-danger"
+                onClick={() => handleSubmit(row, "cancelled")}
+              >
+                CANCEL
+              </button>
+            ) : (
+              <button className="btn btn-danger" disabled>
+                CANCEL
+              </button>
+            )}
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
     <>
       {" "}

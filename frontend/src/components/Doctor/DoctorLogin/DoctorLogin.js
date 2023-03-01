@@ -158,14 +158,14 @@ const DoctorLogin = () => {
       style={{
         margin: "auto",
         padding: "15px",
-        maxWidth: "450px",
+        maxWidth: "500px",
         alignContent: "center",
         // marginTop: "120px",
       }}
     >
       <MDBCard alignment="center">
-        <MDBIcon fas icon="user-circle" className="fa-6x py-5" />
-        <h3>Welcome back Doctor...!!!</h3>
+        <MDBIcon fas icon="user-circle" className="fa-5x p-4" />
+        <h4>WELCOME DOCTOR</h4>
         <MDBCardBody>
           <MDBValidation onSubmit={handleSubmit} noValidate className="row g-3">
             <MDBValidationItem
@@ -218,7 +218,7 @@ const DoctorLogin = () => {
           </MDBValidation>
           <MDBCardFooter>
             <Link to="/doctorSignup">
-            <p>Dont have an account? Register here</p>
+            <p>Don't have an account? Register here</p>
             </Link>
           </MDBCardFooter>
         </MDBCardBody>

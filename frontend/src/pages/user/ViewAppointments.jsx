@@ -56,6 +56,14 @@ const ViewAppointments = () => {
       selector: (row) => row.status,
     },
     {
+      name: "Payment status",
+      selector: (row) => row.paymentStatus,
+    },
+    {
+      name: "Amount",
+      selector: (row) => row.amount,
+    },
+    {
       name: "Action",
       selector: (row) => {
         return (

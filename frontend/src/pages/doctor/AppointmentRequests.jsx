@@ -26,9 +26,12 @@ const AppointmentRequests = () => {
 
   const handleStatus = async (row, status) => {
     try {
-        console.log(status)
-      const response = await updateStatus({ appointmentId: row._id, status }, token);
-      console.log(response)
+      console.log(status);
+      const response = await updateStatus(
+        { appointmentId: row._id, status },
+        token
+      );
+      console.log(response);
       if (response.status) {
         toast.success(response.message);
         fetchData();
@@ -57,6 +60,10 @@ const AppointmentRequests = () => {
       selector: (row) => row.status,
     },
     {
+      name: "Payment",
+      selector: (row) => row.paymentStatus,
+    },
+    {
       name: "Action",
       selector: (row) => {
         return (
@@ -68,32 +75,32 @@ const AppointmentRequests = () => {
                   className="btn btn-success"
                   onClick={() => handleStatus(row, "approved")}
                 >
-                  APPROVE
+                  <i class="fa-solid fa-check"></i>
                 </button>
                 <button
                   className="btn btn-danger"
                   onClick={() => handleStatus(row, "rejected")}
                 >
-                  REJECT
+                  <i class="fa-solid fa-xmark"></i>
                 </button>
               </>
-            ):(
-                <>
+            ) : (
+              <>
                 <button
                   className="btn btn-success"
                   disabled
                   onClick={() => handleStatus(row, "approved")}
                 >
-                  APPROVE
+                  <i class="fa-solid fa-check"></i>
                 </button>
                 <button
                   className="btn btn-danger"
                   disabled
                   onClick={() => handleStatus(row, "rejected")}
                 >
-                  REJECT
+                  <i class="fa-solid fa-xmark"></i>
                 </button>
-              </> 
+              </>
             )}
           </div>
         );
@@ -113,7 +120,7 @@ const AppointmentRequests = () => {
           data={appointments}
           fixedHeader
           // fixedHeaderScrollHeight="500px"
-          selectableRows
+          // selectableRows
           selectableRowsHighlight
           highlightOnHover
           pagination

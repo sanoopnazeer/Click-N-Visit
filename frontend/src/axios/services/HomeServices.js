@@ -5,6 +5,7 @@ import { axiosAdminInstance, axiosDoctorInstance, axiosUserInstance } from "../a
 export const signIn = (formData) => axiosUserInstance.post("/signin", formData)
 export const userLogin = createAsyncThunk("user/login", async({formValue, navigate, toast}, {rejectWithValue}) => {
     try{
+      console.log("home service signin")
         const response = await signIn(formValue)
         toast.success("Login Successful")
         navigate("/")
@@ -18,14 +19,52 @@ export const signUp = (formData) => axiosUserInstance.post("/signup", formData)
 export const userRegister = createAsyncThunk("user/register", async({formValue, navigate, toast}, {rejectWithValue}) => {
     try{
         const response = await signUp(formValue)
-        toast.success("Register Successful")
-        navigate("/")
-        return response.data;
-        // setMsg(response.msg)
+        if(response.data.status==="pending"){
+          const id = response.data.data.userId
+          toast.success(response.data.message)
+          navigate(`/emailVerification/${id}`);
+        }
     }catch(err){
         return rejectWithValue(err.response.data)
     }
 })
+
+export const verifyOTP = async (otp, id) => {
+  console.log('in verify otp')
+  const { data } = await axiosUserInstance.post(`/verifyOTP/${id}`, otp);
+  if (data) {
+    return data;
+  }
+};
+
+export const resendOtp = async (email) => {
+  console.log('in verify otp')
+  const { data } = await axiosUserInstance.post(`/resendOtp`, email);
+  if (data) {
+    return data;
+  }
+};
+
+export const sendResetLink = async (email) => {
+  const { data } = await axiosUserInstance.post('/resetLink', email);
+  if (data) {
+    return data;
+  }
+};
+
+export const validateUser = async (token, userId) => {
+  const {data} = await axiosUserInstance.get(`/validateUser/${userId}/${token}`);
+  if(data){
+    return data
+  }
+}
+
+export const setNewPassword = async (token, userId, newPassword) => {
+  const {data } = await axiosUserInstance.post(`/changePassword/${userId}/${token}`, newPassword)
+  if(data){
+    return data;
+  }
+}
 
 // Admin 
 export const adminSignIn = (formData) => axiosAdminInstance.post("/adminLogin", formData)

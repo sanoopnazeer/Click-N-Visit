@@ -6,9 +6,9 @@ import {
   UilPackage,
   UilChart,
   UilSignOutAlt,
+  UilUsdSquare,
+  UilMoneyWithdrawal
 } from "@iconscout/react-unicons";
-
-import BannerImage from "../assets/images/doctor-team.jpg"
 
 export const SidebarData = [
   {
@@ -41,21 +41,10 @@ export const SidebarData = [
     heading: "Doctor Management",
     page: "doctors"
   },
-  // {
-  //   icon: UilUsersAlt,
-  //   heading: "Lawyer Management",
-  //   page: "lawyers"
-  // },
-  // {
-  //   icon: UilUsersAlt,
-  //   heading: "Teacher Management",
-  //   page: "teachers"
-  // },
-  // {
-  //   icon: UilUsersAlt,
-  //   heading: "Trainer Management",
-  //   page: "trainers"
-  // },
+  {
+    icon: UilUsersAlt,
+    heading: "Add Admin",
+    page: "newAdmin"
+  },
 ];
-
 

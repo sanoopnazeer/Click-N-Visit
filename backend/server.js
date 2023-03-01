@@ -9,6 +9,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const { errorHandler, notFound } = require("./middlewares/errorMiddleware");
 const cors = require("cors");
 const morgan = require("morgan");
+const cookieparser = require("cookie-parser");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(morgan("dev"));
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+app.use(cookieparser())
 
 app.get("/", (req, res) => {
   res.send("API running");

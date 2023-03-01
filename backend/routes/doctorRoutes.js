@@ -10,6 +10,8 @@ const {
   getAppointmentRequests,
   updateAppointmentStatus,
   getDoctorDetails,
+  getDoctorDashDetails,
+  getMyPaidAppointments,
 } = require("../controllers/doctorControllers");
 const { doctorProtect } = require("../middlewares/authMiddleware");
 
@@ -21,6 +23,8 @@ router.post("/updateDoctorProfile/:id", doctorProtect, updateDoctorProfile);
 router.get("/getSingleDoctor/:id", getSingleDoctor);
 router.get("/getDoctorDetails/:id", getDoctorDetails);
 router.get("/getAppointmentRequests/:id", doctorProtect, getAppointmentRequests);
-router.post("/update-appointment-status", doctorProtect, updateAppointmentStatus);
+router.post("/update-appointment-status", updateAppointmentStatus);
+router.get('/getDoctorDashDetails/:docId', doctorProtect, getDoctorDashDetails)
+router.get('/getMyPaidAppointments/:docId', doctorProtect, getMyPaidAppointments)
 
 module.exports = router;

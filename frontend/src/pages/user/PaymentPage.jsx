@@ -13,7 +13,10 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useRazorpay from "react-razorpay";
 import { getDoctorDetails } from "../../axios/services/DoctorServices";
-import { orderVerifyPayment, placeBooking } from "../../axios/services/HomeServices";
+import {
+  orderVerifyPayment,
+  placeBooking,
+} from "../../axios/services/HomeServices";
 
 const PaymentPage = () => {
   const { id } = useParams();
@@ -48,7 +51,7 @@ const PaymentPage = () => {
   const payment = useCallback(async () => {
     const data = await placeBooking(token, bookingData, userId);
     console.log(data);
-    console.log("above is placebooking data")
+    console.log("above is placebooking data");
 
     const options = {
       key: "rzp_test_tofGvmp2BOkbs9",
@@ -56,8 +59,7 @@ const PaymentPage = () => {
       currency: "INR",
       name: "Click N Visit",
       description: "Online Transaction",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/4003/4003833.png",
+      image: "https://cdn-icons-png.flaticon.com/512/4003/4003833.png",
       order_id: data.order.id,
       handler: (res) => {
         verifiyPayment(res, data.order);
@@ -77,18 +79,18 @@ const PaymentPage = () => {
 
     const rzpay = new Razorpay(options);
     rzpay.open();
-    
+
     async function verifiyPayment(res, order) {
-        const verification = await orderVerifyPayment(token, res, order);
-        console.log("above is verification")
-        console.log(verification);
-        if (verification.message) {
-            navigate('/paymentSuccess');
-        } else {
-            alert('error Pls try again...');
-        }
+      const verification = await orderVerifyPayment(token, res, order);
+      console.log("above is verification");
+      console.log(verification);
+      if (verification.message) {
+        navigate("/paymentSuccess");
+      } else {
+        alert("error Pls try again...");
+      }
     }
-  },[]);
+  }, []);
 
   return (
     <>

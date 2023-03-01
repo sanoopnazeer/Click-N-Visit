@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Doctor = require("../models/doctorModel");
 const Category = require("../models/CategoryModel");
-const Appointments = require('../models/appointmentModel')
+const Appointments = require("../models/appointmentModel");
 
 const adminSignin = async (req, res) => {
   const { email, password } = req.body;
@@ -137,7 +137,9 @@ const unblockDoctor = async (req, res) => {
 
 const pendingApprovals = async (req, res) => {
   try {
-    const approvalList = await Doctor.find({ isApproved: false }).populate('specialization')
+    const approvalList = await Doctor.find({ isApproved: false }).populate(
+      "specialization"
+    );
     res.json({ approvalDetails: approvalList, status: "ok" });
   } catch (error) {
     res.status(500).json(error);
@@ -191,16 +193,54 @@ const deleteCategory = async (req, res) => {
 };
 
 const allAppointments = async (req, res) => {
-  try{
-    const appointments = await Appointments.find()
-    console.log(appointments);
-    res.json({allAppointments: appointments, status: 'ok'})
-  }catch(error){
+  try {
+    const appointments = await Appointments.find().sort({ createdAt: -1 });
+    res.json({ allAppointments: appointments, status: "ok" });
+  } catch (error) {
     console.log(error);
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-}
+};
 
+const getPaidAppointments = async (req, res) => {
+  try {
+    const paidAppointments = await Appointments.find({
+      status: "approved",
+      paymentStatus: "Completed",
+    }).sort({ createdAt: -1 });
+    res.json({ paidAppointments: paidAppointments, status: "ok" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const getAllDetails = async (req, res) => {
+  try {
+    const totalUsers = await User.countDocuments();
+    const totalDoctors = await Doctor.countDocuments();
+    const result = await Appointments.aggregate([
+      {
+        $match: {
+          $and: [
+            { status: "approved" },
+            { paymentStatus : "Completed" },
+          ]
+        },
+      },
+      {
+        $group: {
+          _id: 0,
+          totalAmount: { $sum: "$amount" },
+        },
+      },
+    ]);
+
+    const totalRevenue = result[0].totalAmount
+    res.status(200).json({totalUsers, totalDoctors, totalRevenue})
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 module.exports = {
   adminSignin,
@@ -216,5 +256,7 @@ module.exports = {
   addCategory,
   getCategories,
   deleteCategory,
-  allAppointments
+  allAppointments,
+  getPaidAppointments,
+  getAllDetails,
 };

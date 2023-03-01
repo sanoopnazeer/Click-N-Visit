@@ -11,11 +11,21 @@ const {
   verifyPayment,
   getUserProfile,
   updateUserProfile,
+  verifyOTP,
+  resendOtp,
+  resetLink,
+  verifyUser,
+  changePassword,
 } = require("../controllers/userControllers");
 const { userProtect } = require("../middlewares/authMiddleware");
 
 router.post("/signup", registerUser);
 router.post("/signin", signin);
+router.post('/verifyOTP/:id', verifyOTP)
+router.post('/resendOtp', resendOtp)
+router.post('/resetLink', resetLink)
+router.get('/validateUser/:id/:token', verifyUser)
+router.post('/changePassword/:id/:token', changePassword)
 
 router.get('/getUserProfile/:id', getUserProfile)
 router.post('/updateUserProfile/:id', userProtect, updateUserProfile)

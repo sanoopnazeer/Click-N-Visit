@@ -17,26 +17,32 @@ const DoctorBooking = () => {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [isAvailable, setIsAvailable] = useState(null);
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleAvailability = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (user) {
-      const response = await checkAvailability(user, { docId, date, time });
-      console.log(response);
-      console.log("availablity response above");
-      if (response.success) {
-        setIsAvailable(response.appointmentData);
-        toast.success(response.message);
-      } else {
-        toast.error(response.message);
+      if(date==null || time==null){
+        toast.error("Select date and time");
+      }else{
+        const response = await checkAvailability(user, { docId, date, time });
+        if (response.success) {
+          setIsAvailable(response.appointmentData);
+          toast.success(response.message);
+        } else {
+          setIsAvailable(false);
+          toast.error(response.message);
+        }
       }
+    }else{
+      toast.error("Please login to continue");
+      navigate('/login')
     }
   };
-  console.log(isAvailable);
-  console.log("above is isavailbale");
+  // console.log(isAvailable);
+  // console.log("above is isavailbale");
+  console.log(date, time)
 
   // const handleBooking = async () => {
   //   // setIsAvailable(true)
@@ -116,8 +122,9 @@ const DoctorBooking = () => {
             <div className="doc-check-availability">
               <div className="date-picker">
                 <DatePicker
+                name="date"
                   onChange={(value) => {
-                    setDate(moment(value).format("DD-MM-YYYY"));
+                    setDate(value.format("DD-MM-YYYY"));
                   }}
                   size="large"
                   format="DD-MM-YYYY"
@@ -125,8 +132,9 @@ const DoctorBooking = () => {
               </div>
               <div className="time-picker">
                 <TimePicker
+                name="time"
                   onChange={(value) => {
-                    setTime(moment(value).format("h:mm a"));
+                    setTime(value.format("h:mm a"));
                   }}
                   size="large"
                   format="h:mm a"

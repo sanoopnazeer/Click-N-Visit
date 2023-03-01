@@ -28,11 +28,16 @@ import AppointmentRequests from './pages/doctor/AppointmentRequests';
 import ViewAppointments from './pages/user/ViewAppointments';
 import PaymentPage from './pages/user/PaymentPage';
 import Messenger from './pages/messenger/Messenger';
+import Wallet from './pages/user/Wallet';
 import PaymentSuccessPage from './pages/user/PaymentSuccessPage';
 import UserProfile from './pages/user/UserProfile';
 import MessageRequestsPage from './pages/doctor/MessageRequestsPage';
 import DoctorPrivateRoutes from './utils/DoctorPrivateRoutes';
 import AdminPrivateRoutes from './utils/AdminPrivateRoutes';
+import EnterOTP from './pages/user/EnterOTP';
+import ResendOTP from './pages/user/ResendOTP';
+import ForgotPassword from './pages/user/ForgotPassword';
+import SetNewPassword from './pages/user/SetNewPassword';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -57,6 +62,10 @@ const App = () => {
         <Route path="/single-doctor/:docId" element={<DoctorBooking />} />
         <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/doctorProfile/:docId" element={<DoctorProfile />} />
+        <Route path="/emailVerification/:id" element={<EnterOTP />} />
+        <Route path="/resendOtp" element={<ResendOTP />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/newPassword/:userId/:token" element={<SetNewPassword />} />
 
         <Route element={<AdminPrivateRoutes />}>
             <Route path="/adminHome" element={<AdminHome />}/>
@@ -67,6 +76,7 @@ const App = () => {
         <Route path="/payment-page/:id" element={<PaymentPage />} />
         <Route path="/paymentSuccess" element={<PaymentSuccessPage />} />
         <Route path="/messenger" element={<Messenger />} />
+        <Route path="/my-wallet" element={<Wallet />} />
         </Route>
 
         <Route element={<DoctorPrivateRoutes />}>

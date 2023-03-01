@@ -24,6 +24,9 @@ const userSchema = mongoose.Schema(
         required: true,
         unique: true,
       },
+      emailToken: {
+        type: String
+      },
       password: {
         type: String,
         required: true,
@@ -35,6 +38,10 @@ const userSchema = mongoose.Schema(
       isBlocked: {
         type: Boolean,
         default: false
+      },
+      wallet: {
+        type: Number,
+        trim: true
       }
       // pic: {
       //   type: String,

@@ -76,14 +76,12 @@ export const getDoctorByCategory = async (catId) => {
       },
     };
     const { data } = await axiosUserInstance.post('/check-availability', {appointmentData, config });
-    if (data.success) {
+    if (data) {
       return data;
     }
   }
 
   export const getAppointmentRequests = async (token, docId ) => {
-    console.log(docId)
-    console.log("above is doc services docId")
     const config = {
       headers: {
         Accept: "application/json",
@@ -113,9 +111,36 @@ export const getDoctorByCategory = async (catId) => {
   }
 
   export const getDoctorDetails = async (docId) => {
-    console.log(docId)
     const { data } = await axiosDoctorInstance.get(`/getDoctorDetails/${docId}`)
     if(data.status){
+      return data
+    }
+  }
+
+  export const getDoctorDashDetails = async (token, docId) => {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosDoctorInstance.get(`/getDoctorDashDetails/${docId}`, config)
+    if(data){
+      return data
+    }
+  }
+
+  export const getMyPaidAppointments = async (token, docId) => {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosDoctorInstance.get(`/getMyPaidAppointments/${docId}`, config)
+    if(data){
       return data
     }
   }

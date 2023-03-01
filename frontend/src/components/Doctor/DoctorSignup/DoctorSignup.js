@@ -113,7 +113,7 @@ const DoctorRegister = () => {
         className="heading"
         style={{ display: "flex", alignItems: "center" }}
       >
-        <h2>Doctor Application</h2>
+        <h3>DOCTOR APPLICATION</h3>
       </div>
       <div
         style={{

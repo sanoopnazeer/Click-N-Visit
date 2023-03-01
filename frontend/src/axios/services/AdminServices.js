@@ -139,15 +139,8 @@ export const addCategory = async (category, token) => {
   }
 };
 
-export const getCategories = async (token) => {
-  const config = {
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer " + token,
-      "Content-Type": "application/json",
-    },
-  };
-  const { data } = await axiosAdminInstance.get(`/getCategories`, config);
+export const getCategories = async () => {
+  const { data } = await axiosAdminInstance.get(`/getCategories`);
   if (data.status) {
     return data;
   }
@@ -183,3 +176,31 @@ export const getAllAppointments = async (token) => {
     return data;
   }
 };
+
+export const getPaidAppointments = async (token) => {
+  const config = {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+  };
+  const { data } = await axiosAdminInstance.get(`/getPaidAppointments`, config);
+  if (data.status) {
+    return data;
+  } 
+}
+
+export const getAllDetails = async (token) => {
+  const config = {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+  };
+  const { data } = await axiosAdminInstance.get(`/getAllDetails`, config);
+  if (data) {
+    return data;
+  } 
+}

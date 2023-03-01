@@ -53,14 +53,14 @@ const AdminRegister = () => {
       style={{
         margin: "auto",
         padding: "15px",
-        maxWidth: "450px",
+        maxWidth: "600px",
         alignContent: "center",
         marginTop: "120px",
       }}
     >
       <MDBCard alignment="center">
-        <MDBIcon fas icon="user-circle" className="fa-2x" />
-        <h5>Admin Register </h5>
+        <MDBIcon fas icon="user-circle" className="fa-5x p-4" />
+        <h5>ADMIN REGISTRATION</h5>
         <MDBCardBody>
           <MDBValidation onSubmit={handleSubmit} noValidate className="row g-3">
             <MDBValidationItem
@@ -163,11 +163,11 @@ const AdminRegister = () => {
             </div>
           </MDBValidation>
         </MDBCardBody>
-        <MDBCardFooter>
+        {/* <MDBCardFooter>
           <Link to="/adminLogin">
             <p>Already have an account?  Login here</p>
           </Link>
-        </MDBCardFooter>
+        </MDBCardFooter> */}
       </MDBCard>
     </div>
   );

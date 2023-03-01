@@ -48,7 +48,8 @@ const Navbar = () => {
           sx={{
             fontWeight: "bold",
           }}
-          fontSize="20px"
+          fontSize="30px"
+          color="darkred"
         >
           CLICK N VISIT
         </Typography>
@@ -80,6 +81,15 @@ const Navbar = () => {
               }}
             >
               Appointments
+            </Link>
+            <Link
+              to="/my-wallet"
+              style={{
+                textDecoration: "none",
+                color: "#3A1212",
+              }}
+            >
+              Wallet
             </Link>
             <Link
               to="/messenger"

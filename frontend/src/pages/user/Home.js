@@ -8,6 +8,8 @@ import FitnessTrainerBanner from '../../components/Home/FitnessTrainerBanner'
 import Navbar from '../../components/Navbar'
 
 const Home = () => {
+  const token = JSON.parse(localStorage.getItem('user'))?.token;
+  
   return (
     <Box>
         <Navbar />

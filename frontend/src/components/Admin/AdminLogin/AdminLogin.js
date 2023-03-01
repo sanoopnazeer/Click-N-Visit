@@ -164,8 +164,8 @@ const AdminLogin = () => {
       }}
     >
       <MDBCard alignment="center">
-        <MDBIcon fas icon="user-circle" className="fa-2x" />
-        <h5>Admin Sign In </h5>
+        <MDBIcon fas icon="user-circle" className="fa-5x p-4" />
+        <h5>ADMIN LOGIN</h5>
         <MDBCardBody>
           <MDBValidation onSubmit={handleSubmit} noValidate className="row g-3">
             <MDBValidationItem
@@ -216,11 +216,11 @@ const AdminLogin = () => {
               </MDBBtn>
             </div>
           </MDBValidation>
-          <MDBCardFooter>
+          {/* <MDBCardFooter>
             <Link to="/adminSignup">
             <p>Dont have an account? Register here</p>
             </Link>
-          </MDBCardFooter>
+          </MDBCardFooter> */}
         </MDBCardBody>
       </MDBCard>
     </div>

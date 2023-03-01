@@ -9,11 +9,8 @@ const FindDoctor = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const fetchData = async () => {
-    const token = localStorage.getItem("admin");
-    const data = await getCategories(token);
+    const data = await getCategories();
     setCategories(data.categoryDetails);
-
-    console.log(categories)
   };
 
   useEffect(() => {
@@ -23,7 +20,6 @@ const FindDoctor = () => {
   return (
     <>
       <FindDoctorBanner />
-
       <div className="doc-categories-main">
         {categories.map((item) => {
           return (

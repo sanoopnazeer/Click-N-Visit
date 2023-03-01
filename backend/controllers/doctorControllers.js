@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const { default: mongoose } = require("mongoose");
 const Category = require("../models/CategoryModel");
 const Appointments = require("../models/appointmentModel");
+const User = require("../models/userModel");
+const nodemailer = require("nodemailer");
 
 const doctorSignin = async (req, res) => {
   const { email, password } = req.body;
@@ -53,7 +55,7 @@ const doctorSignup = asyncHandler(async (req, res) => {
       experience,
       feesPerConsultation,
       timings,
-      license
+      license,
     } = req.body;
     let doctorExists = await Doctor.findOne({ email });
 
@@ -70,7 +72,7 @@ const doctorSignup = asyncHandler(async (req, res) => {
       experience,
       feesPerConsultation,
       timings,
-      license
+      license,
     });
 
     const token = jwt.sign(
@@ -92,7 +94,6 @@ const getDoctorByCategory = async (req, res) => {
     const doctors = await Doctor.find({ specialization: catId }).populate(
       "specialization"
     );
-    // console.log(doctors);
     res.json({ doctorDetails: doctors, status: "ok" });
   } catch (err) {
     console.log(err);
@@ -130,7 +131,6 @@ const updateDoctorProfile = async (req, res) => {
 const getSingleDoctor = async (req, res) => {
   try {
     const docId = mongoose.Types.ObjectId(req.params.id);
-    console.log(docId);
     const doctor = await Doctor.findOne({ _id: docId }).populate(
       "specialization"
     );
@@ -143,11 +143,10 @@ const getSingleDoctor = async (req, res) => {
 
 const getAppointmentRequests = async (req, res) => {
   try {
-    console.log("inside backend doc controllers");
     const docId = mongoose.Types.ObjectId(req.params.id);
-    console.log(docId);
-    const appointmentRequests = await Appointments.find({ doctorId: docId });
-    console.log(appointmentRequests);
+    const appointmentRequests = await Appointments.find({
+      doctorId: docId,
+    }).sort({ createdAt: -1 });
     if (appointmentRequests) {
       return res.json({
         appointmentDetails: appointmentRequests,
@@ -162,15 +161,60 @@ const getAppointmentRequests = async (req, res) => {
   }
 };
 
+const transporter = nodemailer.createTransport({
+  host: process.env.HOST,
+  service: process.env.SERVICE,
+  port: Number(process.env.EMAIL_PORT),
+  secure: Boolean(process.env.SECURE),
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
 const updateAppointmentStatus = async (req, res) => {
   try {
     const { appointmentId, status } = req.body;
-    console.log(req.body);
-    console.log("inside backend");
     const appointment = await Appointments.findByIdAndUpdate(appointmentId, {
       status,
     });
+    console.log("inside update status");
+    const updated = await Appointments.findById(appointmentId);
+    console.log(updated);
+    const user = await User.findById(updated.userId);
+    if (updated.status !== "approved" && updated.paymentStatus == "Completed") {
+      await User.findByIdAndUpdate(
+        { _id: updated.userId },
+        { $inc: { wallet: updated.amount } }
+      );
+      console.log("refunded");
+      await Appointments.findByIdAndUpdate(appointmentId, {
+        paymentStatus: "refunded",
+      });
+    }
     console.log(appointment);
+
+    //send status mail to user
+    var mailOptions = {
+      from: '"Click N Visit" <process.env.EMAIL_USERNAME>',
+      to: user.email,
+      subject: `Your appointment has been ${status} `,
+      html: `<p> Hi ${user.firstname}! This e-mail is to inform that the appointment you
+      requested with Dr. ${updated.doctorInfo} on <b>${updated.date}</b> at <b>${updated.time}</b> has been <b>${status}.</b></p>`,
+    };
+
+    //send mail
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Appointment status email has been sent");
+      }
+    });
+
     res
       .status(200)
       .send({ message: "Appointment status updated", status: "ok" });
@@ -182,16 +226,65 @@ const updateAppointmentStatus = async (req, res) => {
 
 const getDoctorDetails = async (req, res) => {
   try {
-    const docId = req.params.id
+    const docId = req.params.id;
     console.log(docId);
     console.log("inside backend");
-    const doctor = await Doctor.findById(docId)
-    console.log(doctor);
-    res
-      .status(200)
-      .send({ doctorDetails: doctor, status: "ok" });
+    const doctor = await Doctor.findById(docId);
+    res.status(200).send({ doctorDetails: doctor, status: "ok" });
   } catch (error) {
     console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+const getDoctorDashDetails = async (req, res) => {
+  const docId = req.params.docId;
+  try {
+    const totalAppointments = await Appointments.find({
+      doctorId: docId,
+    }).count();
+    const result = await Appointments.aggregate([
+      {
+        $match: {
+          $and: [
+            { doctorId: docId },
+            { status: "approved" },
+            { paymentStatus: "Completed" },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: 0,
+          totalAmount: { $sum: "$amount" },
+        },
+      },
+    ]);
+    const totalRevenue = result[0].totalAmount;
+    const pendingAppointments = await Appointments.find({
+      doctorId: docId,
+      status: "pending",
+    }).count();
+    console.log(totalAppointments, totalRevenue, pendingAppointments);
+    res
+      .status(200)
+      .json({ totalAppointments, totalRevenue, pendingAppointments });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const getMyPaidAppointments = async (req, res) => {
+  const docId = req.params.docId;
+  try {
+    const paidAppointments = await Appointments.find({
+      doctorId: docId,
+      status: "approved",
+      paymentStatus: "Completed",
+    }).sort({ createdAt: -1 });
+    console.log(paidAppointments);
+    res.json({ paidAppointments: paidAppointments, status: "ok" });
+  } catch (error) {
     res.status(500).json(error);
   }
 };
@@ -205,5 +298,7 @@ module.exports = {
   getSingleDoctor,
   getAppointmentRequests,
   updateAppointmentStatus,
-  getDoctorDetails
+  getDoctorDetails,
+  getDoctorDashDetails,
+  getMyPaidAppointments,
 };
