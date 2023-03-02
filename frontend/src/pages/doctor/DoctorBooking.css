@@ -12,7 +12,7 @@
     flex-direction: row;
     /* background-color: blueviolet; */
     height: 90%;
-    width: 90%;
+    width: 80%;
 }
 
 .doc-dp{
@@ -26,7 +26,7 @@
 
 .doc-details-main{
     /* background-color: brown; */
-    width: 800px;
+    width: 600px;
     display: flex;
     flex-direction: column;
 }
@@ -42,20 +42,21 @@
 .doc-check-availability{
     /* background-color: green; */
     display: flex;
-    justify-content: space-evenly;;
+    flex-direction: row;
+    /* justify-content: space-evenly;; */
     align-items: flex-start;
-    padding-top: 20px;
-    height: 15rem;
+    /* padding-left: 5px; */
+    /* height: 15rem; */
 }
 
-.book-button{
-    padding-bottom: 60px;
-    width: 20rem;
+.book-container{
+    padding-top: 60px;
+    width: 40rem;
     /* background-color: orange; */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: start;
+    justify-content: center;
+    align-items: center;
 }
 
 .doc-name{
@@ -65,7 +66,19 @@
 .doc-name1{
     color: rgb(99, 23, 23);
     font-family: sans-serif;
+    font-weight: bolder;
 }
 
+.time-picker{
+    padding-left: 10px;
+}
+
+.check-button{
+    width: 323px;
+}
+
+.book-button{
+    width: 323px;
+}
 
 

@@ -40,8 +40,8 @@ const ViewAppointments = () => {
 
   const columns = [
     {
-      name: "Token number",
-      selector: (row) => row._id,
+      name: "Doctor name",
+      selector: (row) => row.doctorInfo,
     },
     {
       name: "Date",
@@ -94,7 +94,7 @@ const ViewAppointments = () => {
     <>
       <Navbar />
       <div className="container-fluid p-2">
-        <h1>YOUR APPOINTMENTS</h1>
+        <h1>MY APPOINTMENTS</h1>
       </div>
       <div className="container">
         <div className="row mt-5"></div>

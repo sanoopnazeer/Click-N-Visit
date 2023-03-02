@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Stack, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
@@ -48,7 +48,7 @@ const Navbar = () => {
           sx={{
             fontWeight: "bold",
           }}
-          fontSize="30px"
+          fontSize="25px"
           color="darkred"
         >
           CLICK N VISIT

@@ -119,6 +119,8 @@ const DoctorBooking = () => {
                 )}
               </div>
             </div>
+          </div>
+          <div className="book-container">
             <div className="doc-check-availability">
               <div className="date-picker">
                 <DatePicker
@@ -141,11 +143,9 @@ const DoctorBooking = () => {
                 />
               </div>
             </div>
-          </div>
-          <div className="book-button">
             <button
               type="button"
-              class="btn btn-primary btn-lg mb-3"
+              class="check-button btn btn-primary btn-lg mt-3"
               onClick={handleAvailability}
             >
               Check Availability
@@ -158,7 +158,7 @@ const DoctorBooking = () => {
               >
                 <button
                   type="button"
-                  class="btn btn-dark btn-lg"
+                  class="book-button btn btn-dark btn-lg mt-3"
                   // onClick={handleBooking}
                 >
                   Book now

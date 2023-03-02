@@ -34,10 +34,10 @@ const DoctorInfo = () => {
       name: "Name",
       selector: (row) => row.firstname + "  " + row.lastname,
     },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-    },
+    // {
+    //   name: "Email",
+    //   selector: (row) => row.email,
+    // },
     {
       name: "License Number",
       selector: (row) => row.license,

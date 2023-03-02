@@ -55,12 +55,12 @@ const AllAppoinments = () => {
       selector: (row) => row.status,
     },
     {
-      name: "Amount",
-      selector: (row) => row.amount,
-    },
-    {
       name: "Payment Status",
       selector: (row) => row.paymentStatus,
+    },
+    {
+      name: "Amount",
+      selector: (row) => row.amount,
     },
     {
       name: "Action",

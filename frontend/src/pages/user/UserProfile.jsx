@@ -34,7 +34,7 @@ const UserProfile = () => {
   }, [userId, token]);
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     updateUserProfile({ ...formValue }, token, userId);
     navigate("/");
     toast.success("Profile updated");

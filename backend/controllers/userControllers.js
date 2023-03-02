@@ -461,23 +461,36 @@ const checkAvailability = async (req, res) => {
     const toTimeUnformatted = toTimeObj.add(15, "minutes");
 
     const toTime = toTimeUnformatted.format("h:mm a");
+
     const docId = req.body.appointmentData.docId;
-    const appointments = await Appointments.find({
-      doctorId: docId,
-      date: date,
-      time: { $gte: fromTime, $lte: toTime },
-    });
-    console.log(date, fromTime, toTime);
-    if (appointments.length > 0) {
+    const doctor = await Doctor.findById(docId);
+    console.log(doctor.timings[0]);
+    if (
+      fromTime >= doctor.timings[0] &&
+      fromTime <= doctor.timings[1]
+    ) {
+      const appointments = await Appointments.find({
+        doctorId: docId,
+        date: date,
+        time: { $gte: fromTime, $lte: toTime },
+      });
+      console.log(date, fromTime, toTime);
+      if (appointments.length > 0) {
+        return res
+          .status(200)
+          .send({ message: "Slot not available at this time" });
+      } else {
+        return res.status(200).send({
+          appointmentData: req.body.appointmentData,
+          message: "Slot available",
+          success: true,
+        });
+      }
+    }else{
+      console.log("not avilabel");
       return res
         .status(200)
-        .send({ message: "Slot not available at this time" });
-    } else {
-      return res.status(200).send({
-        appointmentData: req.body.appointmentData,
-        message: "Slot available",
-        success: true,
-      });
+        .send({ message: "Doctor unavailable at this time" });
     }
   } catch (error) {
     console.log(error);

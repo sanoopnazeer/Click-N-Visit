@@ -48,6 +48,17 @@ const UserInfo = () => {
       selector: (row) => row.age,
     },
     {
+      name: "Verification status",
+      selector: (row) => {
+        return (
+          <div>
+            {" "}
+            {row.verified?(<p><br/>verified</p>):(<p><br/>Not verified</p>)}
+          </div>
+        )
+      },
+    },
+    {
       name: "Block/Unblock",
       selector: (row) => {
         return (
