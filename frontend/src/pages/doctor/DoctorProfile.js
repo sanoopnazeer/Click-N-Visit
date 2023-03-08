@@ -10,14 +10,10 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBCardFooter,
   MDBValidation,
   MDBBtn,
-  MDBIcon,
   MDBSpinner,
   MDBValidationItem,
-  MDBDropdown,
-  MDBRow,
 } from "mdb-react-ui-kit";
 import { toast } from "react-toastify";
 import { TimePicker } from "antd";
@@ -41,10 +37,7 @@ const DoctorProfile = () => {
     moment(timings[0], "h:mm a"),
     moment(timings[1], "h:mm a"),
   ];
-  console.log(timing);
   // const {doctor} = useSelector((state) => (state.doctor))
-  console.log("timing above");
-  //   console.log(formValue);
   const navigate = useNavigate();
   const doctor = JSON.parse(localStorage.getItem("doctor"));
 
@@ -79,7 +72,7 @@ const DoctorProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateDoctorProfile({ ...formValue }, token, docId);
+    updateDoctorProfile({ ...formValue }, token);
     navigate("/doctorHome");
     toast.success("Profile updated");
   };

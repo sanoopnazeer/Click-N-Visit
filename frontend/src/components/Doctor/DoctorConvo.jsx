@@ -10,7 +10,7 @@ const DoctorConvo = ({conversation, currentUser}) => {
       const userId = conversation.members.find((m) => m !== currentUser._id)
       
       const getUser = async () => {
-        const token = JSON.parse(localStorage.getItem('user')).token
+        const token = JSON.parse(localStorage.getItem('doctor')).token
         const res = await getUserProfile(token, userId)
         setUser(res.userProfile)
       }

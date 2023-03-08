@@ -22,12 +22,14 @@ const MessageRequests = () => {
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:5000");
+    // socket.current = io("ws://localhost:5000");
+    socket.current = io("https://click-n-visit.onrender.com");
+    
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
-        // createdAt: Date.now,
+        createdAt: Date.now(),
       });
     });
   }, []);
@@ -133,9 +135,6 @@ const MessageRequests = () => {
               </span>
             )}
           </div>
-        </div>
-        <div className="chatOnline">
-          <div className="chatOnlineWrapper"></div>
         </div>
       </div>
     </>

@@ -49,7 +49,7 @@ const PaymentPage = () => {
   const Razorpay = useRazorpay();
 
   const payment = useCallback(async () => {
-    const data = await placeBooking(token, bookingData, userId);
+    const data = await placeBooking(token, bookingData);
     console.log(data);
     console.log("above is placebooking data");
 

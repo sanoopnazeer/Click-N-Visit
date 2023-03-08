@@ -17,7 +17,7 @@ const EnterOTP = () => {
     const data = await verifyOTP({otp: otp}, id);
     if (data.verified) {
       toast.success(data.message);
-      navigate("/");
+      navigate("/login");
     } else {
       toast.error(data.message);
     }

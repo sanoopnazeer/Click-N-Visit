@@ -28,7 +28,7 @@ export const getDoctorByCategory = async (catId) => {
     }
   };
 
-  export const updateDoctorProfile = async ( formData, token, docId ) => {
+  export const updateDoctorProfile = async ( formData, token ) => {
     const config = {
       headers: {
         Accept: "application/json",
@@ -36,7 +36,7 @@ export const getDoctorByCategory = async (catId) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosDoctorInstance.post(`/updateDoctorProfile/${docId}`, {formData}, config);
+    const { data } = await axiosDoctorInstance.post(`/updateDoctorProfile`, {formData}, config);
     if (data.status) {
       return data;
     }
@@ -95,6 +95,20 @@ export const getDoctorByCategory = async (catId) => {
     }
   }
 
+  export const getTodaysAppointmentRequests = async (token, docId ) => {
+    const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosDoctorInstance.get(`/getTodaysAppointmentRequests/${docId}`, config);
+    if (data.status) {
+      return data;
+    }
+  }
+
   export const updateStatus = async (appointmentData, token) => {
         const config = {
       headers: {
@@ -109,6 +123,21 @@ export const getDoctorByCategory = async (catId) => {
       return data
     }
   }
+
+  export const rejectFunction = async (appointmentData, token) => {
+    const config = {
+  headers: {
+    Accept: "application/json",
+    Authorization: "Bearer " + token,
+    "Content-Type": "application/json",
+  },
+};
+console.log(appointmentData)
+const { data } = await axiosDoctorInstance.post(`/reject`,appointmentData, config)
+if(data.status){
+  return data
+}
+}
 
   export const getDoctorDetails = async (docId) => {
     const { data } = await axiosDoctorInstance.get(`/getDoctorDetails/${docId}`)

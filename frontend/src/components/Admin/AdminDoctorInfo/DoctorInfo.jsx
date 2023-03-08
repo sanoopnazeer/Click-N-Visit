@@ -60,20 +60,7 @@ const DoctorInfo = () => {
     },
     {
       name: "Approval status",
-      selector: (row) => {
-        return (
-          <div>
-            <br />
-            {
-              row.isApproved ? (
-                <p>Approved</p>
-              ) : (
-                <p>Not Approved</p>
-              )
-            }
-          </div>
-        )
-      }
+      selector: (row) => row.isApproved,
     },
     {
       name: "Block/Unblock",
@@ -110,7 +97,7 @@ const DoctorInfo = () => {
         columns={columns}
         data={details}
         fixedHeader
-        fixedHeaderScrollHeight="500px"
+        // fixedHeaderScrollHeight="700px"
         selectableRows
         selectableRowsHighlight
         highlightOnHover

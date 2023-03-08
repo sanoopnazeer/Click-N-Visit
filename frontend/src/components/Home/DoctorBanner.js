@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Stack, Typography, Button } from "@mui/material";
 
 import DoctorBannerImage from "../../assets/images/doctor.webp";
+import { Link } from "react-router-dom";
 
 const DoctorBanner = () => {
   return (
@@ -27,8 +28,12 @@ const DoctorBanner = () => {
       <Typography fontSize="22px" lineHeight="35px" mb={2}>
         Check out the industry experts
       </Typography>
-      <Button variant="contained" color="success" href="/findDoctor">Find your Doctor</Button>
-      <Button variant="outlined" color="error" style={{ marginLeft: '35px'}} href="/doctorSignup">Join Us</Button>
+      <Link to="/findDoctor">
+      <Button variant="contained" color="success">Find your Doctor</Button>
+      </Link>
+      <Link to="/doctorSignup">
+      <Button variant="outlined" color="error" style={{ marginLeft: '35px'}}>Join Us</Button>
+      </Link>
         </Box>
       <Box>
           <img src={DoctorBannerImage} alt='banner' className="doctor-banner-img" width={350} height={500} />

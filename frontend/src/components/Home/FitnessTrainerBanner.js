@@ -30,7 +30,7 @@ const FitnessTrainerBanner = () => {
         <Typography fontSize="22px" lineHeight="35px" mb={2}>
           Check out the industry experts
         </Typography>
-        <Button variant="contained" color="success" href="">Find your Fitness Trainer</Button>
+        <Button variant="contained" color="success">Find your Fitness Trainer</Button>
         <Button variant="outlined" color="error" style={{ marginLeft: '35px'}}>Join Us</Button>
         {/* <Typography fontWeight={600}
         color="#ff2625"

@@ -38,6 +38,7 @@ import EnterOTP from './pages/user/EnterOTP';
 import ResendOTP from './pages/user/ResendOTP';
 import ForgotPassword from './pages/user/ForgotPassword';
 import SetNewPassword from './pages/user/SetNewPassword';
+import E404 from './pages/E404/E404';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -66,18 +67,19 @@ const App = () => {
         <Route path="/resendOtp" element={<ResendOTP />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/newPassword/:userId/:token" element={<SetNewPassword />} />
+        <Route path="*" element={<E404 />} />
 
         <Route element={<AdminPrivateRoutes />}>
             <Route path="/adminHome" element={<AdminHome />}/>
         </Route>
 
-        <Route element={<UserPrivateRoutes />}>
+        {/* <Route element={<UserPrivateRoutes />}> */}
         <Route path="/view-appointments" element={<ViewAppointments />} />
         <Route path="/payment-page/:id" element={<PaymentPage />} />
         <Route path="/paymentSuccess" element={<PaymentSuccessPage />} />
         <Route path="/messenger" element={<Messenger />} />
         <Route path="/my-wallet" element={<Wallet />} />
-        </Route>
+        {/* </Route> */}
 
         <Route element={<DoctorPrivateRoutes />}>
         <Route path="/doctorHome" element={<DoctorHome />} />

@@ -24,12 +24,13 @@ const Messenger = () => {
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:5000");
+    // socket.current = io("ws://localhost:5000");
+    socket.current = io("https://click-n-visit.onrender.com");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
-        // createdAt: Date.now,
+        createdAt: Date.now(),
       });
     });
   }, []);
@@ -109,12 +110,12 @@ const Messenger = () => {
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  <div ref={scrollRef}>
                   {messages.map((msg) => (
+                  <div ref={scrollRef}>
                       <Message message={msg} own={msg.sender === user._id} />
+                      </div>
                       ))}
                       </div>
-                </div>
                 <div className="chatBoxBottom">
                   <textarea
                     className="chatMessageInput"

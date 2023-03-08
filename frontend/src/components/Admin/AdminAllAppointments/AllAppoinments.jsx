@@ -39,8 +39,12 @@ const AllAppoinments = () => {
 
   const columns = [
     {
-      name: "Token number",
-      selector: (row) => row._id,
+      name: "Doctor name",
+      selector: (row) => row.doctorInfo,
+    },
+    {
+      name: "Patient name",
+      selector: (row) => row.userInfo,
     },
     {
       name: "Date",

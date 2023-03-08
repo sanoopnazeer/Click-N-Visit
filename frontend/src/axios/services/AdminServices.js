@@ -107,7 +107,7 @@ export const pendingApprovals = async (token) => {
   }
 };
 
-export const approve = async (token, consId) => {
+export const approve = async (approvalData, token) => {
   const config = {
     headers: {
       Accept: "application/json",
@@ -115,7 +115,7 @@ export const approve = async (token, consId) => {
       "Content-Type": "application/json",
     },
   };
-  const { data } = await axiosAdminInstance.get(`/approve/${consId}`, config);
+  const { data } = await axiosAdminInstance.post(`/approve`, approvalData, config);
   if (data.status) {
     return data;
   }

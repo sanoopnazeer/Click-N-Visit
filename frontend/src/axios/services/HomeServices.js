@@ -120,7 +120,7 @@ export const doctorRegister = createAsyncThunk("doctor/doctorSignup", async({for
 })
 
 export const getUserProfile = async (token, userId) => {
-  console.log(userId)
+  // console.log(userId)
   console.log(token)
   console.log('inside home services userid')
   const config = {
@@ -136,7 +136,7 @@ export const getUserProfile = async (token, userId) => {
     }
 }
 
-export const updateUserProfile = async (formData, token, userId) => {
+export const updateUserProfile = async (formData, token) => {
   const config = {
       headers: {
         Accept: "application/json",
@@ -144,7 +144,7 @@ export const updateUserProfile = async (formData, token, userId) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axiosUserInstance.post(`/updateUserProfile/${userId}`, {formData}, config );
+    const { data } = await axiosUserInstance.post(`/updateUserProfile`, {formData}, config );
     if (data.status) {
       return data;
     }
@@ -166,7 +166,22 @@ export const getUserAppointments = async (token, userId) => {
       }
 }
 
-export const placeBooking = async (token, bookingData, userId) => {
+export const cancelAppointment = async (cancellationData, token) => {
+  console.log('inside home services userid')
+  const config = {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axiosUserInstance.post(`/cancelAppointment`,cancellationData, config );
+    if (data.status) {
+      return data;
+    }
+}
+
+export const placeBooking = async (token, bookingData) => {
     console.log('in booking');
     console.log(token);
     const config = {
@@ -176,7 +191,7 @@ export const placeBooking = async (token, bookingData, userId) => {
         'Content-Type': 'application/json',
       },
     };
-    const { data } = await axiosUserInstance.post(`/payment/${userId}`, bookingData, config);
+    const { data } = await axiosUserInstance.post(`/payment`, bookingData, config);
     if (data) {
       return data;
     }
