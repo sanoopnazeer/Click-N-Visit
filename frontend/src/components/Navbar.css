@@ -1,0 +1,30 @@
+
+header{
+    width: 100%;
+    /* background-color: rgba(23,23,23,0.15); */
+    background-color: #000000;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+}
+
+header .nav-container{
+    display: flex;
+    justify-content: space-between;
+    width: 1150px;
+    margin: auto;
+}
+
+header a{
+    text-decoration: none;
+    margin-right: 50px;
+    font-style: 14px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.719);
+    /* color: black; */
+    font-family: Tahoma;
+}
+
+.nav-container span {
+    color: red;
+}

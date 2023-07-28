@@ -1,0 +1,96 @@
+
+.banner-container{
+    /* margin-top: 100px; */
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(6,72,105,0.849), rgba(3, 96,133)),url(https://www.pixelstalk.net/wp-content/uploads/images1/Download-Medical-Images.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.banner-container .container{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+}
+
+.left-section{
+    width: 600px;
+}
+
+.left-section h1{
+    margin: 0;
+    color: white;
+    font-size: 60px;
+}
+
+.left-section p{
+    margin: 0;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.884);
+    letter-spacing: 1px;
+    margin-top: 18px;
+    line-height: 40px;
+}
+
+.left-section h4{
+    color: rgb(37, 37, 37);
+    margin-top: 15px;
+}
+
+.left-section button{
+    font-weight: bold;
+    padding: 12px 40px;
+    margin-right: 10px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.right-section img{
+    border-radius: 15px;
+    box-shadow: 10px 5px 26px rgb(61, 61, 61);
+}
+
+.section-two{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-two p{
+    font-size: 18px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.banner-container-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.banner-container-2-text{
+    max-width: 70%;
+    letter-spacing: 1px;
+}
+
+.bannerImage-container {
+    /* width: 100%; */
+    /* height: 500px; */
+    display: flex;
+    justify-content: center;
+}
+
+.bannerImage-container img{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 60px;
+    object-fit: cover;
+    box-shadow: 5px 15px 26px rgb(107, 107, 107);
+}
+

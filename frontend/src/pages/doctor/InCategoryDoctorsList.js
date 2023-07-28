@@ -5,10 +5,10 @@ import Navbar from '../../components/Navbar'
 const InCategoryDoctorsList = () => {
 
   return (
-    <div>
+    <>
         <Navbar />
         <InCategoryDoctors />
-    </div>
+    </>
   )
 }
 

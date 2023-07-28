@@ -23,10 +23,6 @@ const InCategoryDoctors = () => {
     <>
       <div className="container-fluid">
         <div className="container">
-          {/* <div className="heading">
-            <p>DENTIST</p>
-          </div> */}
-
           <div className="heading">
             <p>Introducing The Industry Experts In This Field</p>
           </div>

@@ -17,6 +17,7 @@ import {
   orderVerifyPayment,
   placeBooking,
 } from "../../axios/services/HomeServices";
+import './PaymentPage.css'
 
 const PaymentPage = () => {
   const { id } = useParams();
@@ -95,137 +96,120 @@ const PaymentPage = () => {
   return (
     <>
       <Navbar />
-      <MDBContainer fluid className="p-5" style={{ backgroundColor: "#eee" }}>
-        <MDBCard>
-          <MDBCardBody>
-            <MDBRow className="d-flex justify-content-center pb-5">
-              <MDBCol md="7" xl="6" className="mb-4 mb-md-0">
-                <div className="py-4 d-flex flex-row">
-                  <h5>
-                    <span className="far fa-check-square pe-2"></span>
-                    <b>REQUIRED</b> |
-                  </h5>
-                  <span className="ps-2">Pay</span>
-                </div>
-                <h4 className="text-success">
-                  Rs. {docDetails?.feesPerConsultation}
-                </h4>
-                <h4>
-                  Dr. {docDetails.firstname} {docDetails.lastname} (specialist)
-                </h4>
-                <div className="d-flex pt-2">
-                  <div>
-                    <p>
-                      <b>
-                        Your appointment will be scheduled on{" "}
-                        <span className="text-success">
-                          {bookingData.date} at {bookingData.time}
-                        </span>
-                      </b>
-                    </p>
+      <div className="paymentpage">
+        <MDBContainer fluid className="p-5">
+          <MDBCard>
+            <MDBCardBody>
+              <MDBRow className="d-flex justify-content-center pb-5">
+                <MDBCol md="7" xl="6" className="mb-4 mb-md-0">
+                  <div className="py-4 d-flex flex-row">
+                    <h5>
+                      <span className="far fa-check-square pe-2"></span>
+                      <b>REQUIRED</b> |
+                    </h5>
+                    <span className="ps-2">Pay</span>
                   </div>
-                </div>
-                <li>
-                  Payment is due in full at the time of booking your
-                  appointment.{" "}
-                </li>
-                <li>
-                  We reserve the right to cancel or reschedule your appointment
-                  due to unforeseen circumstances.
-                </li>
-                <li>
-                  We take the security of your payment information seriously and
-                  use industry-standard encryption to protect your data.
-                </li>
-                <li>
-                  By making a payment through our payment page, you agree to our
-                  terms and conditions and privacy policy.
-                </li>
-
-                <hr />
-                <div className="pt-2">
-                  <div className="d-flex flex-row pb-3">
-                    <div className="d-flex align-items-center pe-2">
-                      <MDBRadio
-                        name="radioNoLabel"
-                        id="radioNoLabel1"
-                        checked
-                      />
-                    </div>
-                    <div className="rounded border d-flex w-100 p-3 align-items-center">
-                      <p className="mb-0">
-                        <MDBIcon
-                          fab
-                          icon="cc-amazon-pay"
-                          size="lg"
-                          className="text-dark pe-2"
-                        />{" "}
-                        Pay with RazorPay
+                  <h4 className="text-success">
+                    Rs. {docDetails?.feesPerConsultation}
+                  </h4>
+                  <h4>
+                    Dr. {docDetails.firstname} {docDetails.lastname}{" "}
+                    (specialist)
+                  </h4>
+                  <div className="d-flex pt-2">
+                    <div>
+                      <p>
+                        <b>
+                          Your appointment will be scheduled on{" "}
+                          <span className="text-success">
+                            {bookingData.date} at {bookingData.time}
+                          </span>
+                        </b>
                       </p>
                     </div>
                   </div>
-                  <MDBBtn block size="lg" onClick={payment}>
-                    Proceed to payment
-                  </MDBBtn>
-                </div>
-              </MDBCol>
-              <MDBCol md="5" xl="4" offsetXl="1">
-                {" "}
-                <div className="py-4 d-flex justify-content-end">
-                  <h6>
-                    <Link to="/findDoctor">Cancel and return to website</Link>
-                  </h6>
-                </div>
-                <div
-                  className="rounded d-flex flex-column p-2"
-                  style={{ backgroundColor: "#f8f9fa" }}
-                >
-                  <div className="p-2 me-3">
-                    <h4>Order Recap</h4>
-                  </div>
-                  <div className="p-2 d-flex">
-                    <MDBCol size="8">Consultation fees</MDBCol>
-                    <div className="ms-auto">
-                      Rs. {docDetails.feesPerConsultation}
+                  <li>
+                    Payment is due in full at the time of booking your
+                    appointment.{" "}
+                  </li>
+                  <li>
+                    We reserve the right to cancel or reschedule your
+                    appointment due to unforeseen circumstances.
+                  </li>
+                  <li>
+                    We take the security of your payment information seriously
+                    and use industry-standard encryption to protect your data.
+                  </li>
+                  <li>
+                    By making a payment through our payment page, you agree to
+                    our terms and conditions and privacy policy.
+                  </li>
+
+                  <hr />
+                  <div className="pt-2">
+                    <div className="d-flex flex-row pb-3">
+                      <div className="d-flex align-items-center pe-2">
+                        <MDBRadio
+                          name="radioNoLabel"
+                          id="radioNoLabel1"
+                          checked
+                        />
+                      </div>
+                      <div className="rounded border d-flex w-100 p-3 align-items-center">
+                        <p className="mb-0">
+                          <MDBIcon
+                            fab
+                            icon="cc-amazon-pay"
+                            size="lg"
+                            className="text-dark pe-2"
+                          />{" "}
+                          Pay with RazorPay
+                        </p>
+                      </div>
                     </div>
+                    <MDBBtn block size="lg" onClick={payment}>
+                      Proceed to payment
+                    </MDBBtn>
                   </div>
-                  {/* <div className="p-2 d-flex">
-                    <MDBCol size="8">Service charge</MDBCol>
-                    <div className="ms-auto">Rs. </div>
+                </MDBCol>
+                <MDBCol md="5" xl="4" offsetXl="1">
+                  {" "}
+                  <div className="py-4 d-flex justify-content-end">
+                    <h6>
+                      <Link to="/findDoctor">Cancel and return to website</Link>
+                    </h6>
                   </div>
-                  <div className="border-top px-2 mx-2"></div>
-                  <div className="p-2 d-flex pt-3">
-                    <MDBCol size="8">Insurance Responsibility</MDBCol>
-                    <div className="ms-auto">
-                      <b>$71.76</b>
+                  <div
+                    className="rounded d-flex flex-column p-2"
+                    style={{ backgroundColor: "#f8f9fa" }}
+                  >
+                    <div className="p-2 me-3">
+                      <h4>Order Recap</h4>
                     </div>
-                  </div>
-                  <div className="p-2 d-flex">
-                    <MDBCol size="8">
-                      Patient Balance{" "}
-                      <span className="fa fa-question-circle text-dark"></span>
-                    </MDBCol>
-                    <div className="ms-auto">
-                      <b>Rs. {docDetails.feesPerConsultation}</b>
-                    </div>
-                  </div> */}
-                  <div className="border-top px-2 mx-2"></div>
-                  <div className="p-2 d-flex pt-3">
-                    <MDBCol size="8">
-                      <b>Total</b>
-                    </MDBCol>
-                    <div className="ms-auto">
-                      <b className="text-success">
+                    <div className="p-2 d-flex">
+                      <MDBCol size="8">Consultation fees</MDBCol>
+                      <div className="ms-auto">
                         Rs. {docDetails.feesPerConsultation}
-                      </b>
+                      </div>
+                    </div>
+                    <div className="border-top px-2 mx-2"></div>
+                    <div className="p-2 d-flex pt-3">
+                      <MDBCol size="8">
+                        <b>Total</b>
+                      </MDBCol>
+                      <div className="ms-auto">
+                        <b className="text-success">
+                          Rs. {docDetails.feesPerConsultation}
+                        </b>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </MDBCol>
-            </MDBRow>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBContainer>
+                </MDBCol>
+              </MDBRow>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBContainer>
+      </div>
     </>
   );
 };

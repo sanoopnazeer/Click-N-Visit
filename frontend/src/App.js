@@ -48,7 +48,7 @@ const App = () => {
   })
   
   return (
-    <Box width = "400px" sx={{ width: {xl: '1488px' }}} m="auto">
+    <Box>
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -70,7 +70,7 @@ const App = () => {
         <Route path="*" element={<E404 />} />
 
         <Route element={<AdminPrivateRoutes />}>
-            <Route path="/adminHome" element={<AdminHome />}/>
+          <Route path="/adminHome" element={<AdminHome />} />
         </Route>
 
         {/* <Route element={<UserPrivateRoutes />}> */}
@@ -82,9 +82,9 @@ const App = () => {
         {/* </Route> */}
 
         <Route element={<DoctorPrivateRoutes />}>
-        <Route path="/doctorHome" element={<DoctorHome />} />
-        <Route path="/appointment-requests" element={<AppointmentRequests />} />
-        <Route path="/message-requests" element={<MessageRequestsPage />} />
+          <Route path="/doctorHome" element={<DoctorHome />} />
+          <Route path="/appointment-requests" element={<AppointmentRequests />} />
+          <Route path="/message-requests" element={<MessageRequestsPage />} />
         </Route>
       </Routes>
       <Footer />

@@ -1,14 +1,14 @@
-import React from 'react'
-import Navbar from '../../components/Navbar'
-import DoctorSignup from '../../components/Doctor/DoctorSignup/DoctorSignup'
+import React from "react";
+import DoctorSignup from "../../components/Doctor/DoctorSignup/DoctorSignup";
+import Navbar from "../../components/Navbar";
 
 const doctorSignup = () => {
   return (
-    <div>
-        <Navbar />
-        <DoctorSignup />
-    </div>
-  )
-}
+    <>
+      <Navbar />
+      <DoctorSignup />
+    </>
+  );
+};
 
-export default doctorSignup
+export default doctorSignup;

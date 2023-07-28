@@ -14,6 +14,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { userLogin } from "../../axios/services/HomeServices";
+import './Login.css'
+
 const initialState = {
   email: "",
   password: "",
@@ -42,15 +44,8 @@ const Login = () => {
   };
 
   return (
-    <div
-      style={{
-        margin: "auto",
-        // padding: "15px",
-        maxWidth: "450px",
-        alignContent: "center",
-        marginTop: "25px",
-      }}
-    >
+    <div className="login">
+      <div className="login-container">
       <MDBCard alignment="center">
         <MDBIcon fas icon="user-circle" className="fa-5x p-4" />
         <h4>USER LOGIN</h4>
@@ -114,6 +109,7 @@ const Login = () => {
           </Link>
         </MDBCardFooter>
       </MDBCard>
+      </div>
     </div>
   );
 };

@@ -25,6 +25,8 @@ const ResendOTP = () => {
   return (
     <>
       <Navbar />
+      <div className="resendotp-page" style={{width: "100%", height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="resendotp-container">
       <div className="row Clogin-Main justify-content-center align-items-center mt-4 pt-1">
         <section className="gradient-custom">
           <div className="container py-5 h-100 justify-content-center align-items-center">
@@ -73,6 +75,8 @@ const ResendOTP = () => {
             </div>
           </div>
         </section>
+      </div>
+        </div>
       </div>
     </>
   );

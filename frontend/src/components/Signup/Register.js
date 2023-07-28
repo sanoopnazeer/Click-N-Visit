@@ -15,6 +15,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { userRegister } from "../../axios/services/HomeServices";
+import './Register.css'
+
 const initialState = {
   firstname: "",
   lastname: "",
@@ -58,15 +60,8 @@ const Register = () => {
   };
 
   return (
-    <div
-      style={{
-        margin: "auto",
-        // padding: "15px",
-        maxWidth: "600px",
-        alignContent: "center",
-        // marginTop: "50px",
-      }}
-    >
+    <div className="register">
+      <div className="register-container">
       <MDBCard alignment="center">
         <MDBIcon fas icon="user-circle" className="fa-5x p-4" />
         <h4> USER REGISTRATION </h4>
@@ -218,6 +213,7 @@ const Register = () => {
           </Link>
         </MDBCardFooter>
       </MDBCard>
+      </div>
     </div>
   );
 };

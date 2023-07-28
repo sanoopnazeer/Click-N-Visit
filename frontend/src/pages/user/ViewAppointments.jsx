@@ -8,6 +8,7 @@ import {
 } from "../../axios/services/HomeServices";
 import Navbar from "../../components/Navbar";
 import Modal from "react-modal";
+import "./ViewAppointments.css";
 
 const ViewAppointments = () => {
   const [appointments, setAppointments] = useState("");
@@ -172,21 +173,25 @@ const ViewAppointments = () => {
   return (
     <>
       <Navbar />
-      <div className="container-fluid p-2">
-        <h1>MY APPOINTMENTS</h1>
-      </div>
-      <div className="container">
-        <div className="row mt-5"></div>
-        <DataTable
-          columns={columns}
-          data={appointments}
-          // fixedHeader
-          fixedHeaderScrollHeight="500px"
-          selectableRows
-          selectableRowsHighlight
-          highlightOnHover
-          pagination
-        />
+      <div className="appointments">
+        <div className="appointments-container">
+          <div className="container-fluid p-2">
+            <h1>MY APPOINTMENTS</h1>
+          </div>
+          <div className="container">
+            <div className="row mt-5"></div>
+            <DataTable
+              columns={columns}
+              data={appointments}
+              // fixedHeader
+              fixedHeaderScrollHeight="500px"
+              selectableRows
+              selectableRowsHighlight
+              highlightOnHover
+              pagination
+            />
+          </div>
+        </div>
       </div>
     </>
   );

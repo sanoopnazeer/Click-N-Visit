@@ -422,7 +422,7 @@ const verifyPayment = async (req, res) => {
 
     var response = { signatureIsValid: "false" };
     if (generated_signature === req.body.res.razorpay_signature) {
-      response = { signatureIsValid: "true" };
+      response = { signatureIsValid: "true" }; 
       console.log("signatureIsvalid");
 
       changePaymentStatus(req.body.order, res);

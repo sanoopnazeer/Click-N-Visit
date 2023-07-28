@@ -40,36 +40,6 @@ const DoctorBooking = () => {
       navigate('/login')
     }
   };
-  // console.log(isAvailable);
-  // console.log("above is isavailbale");
-  console.log(date, time)
-
-  // const handleBooking = async () => {
-  //   // setIsAvailable(true)
-  //   if(!date && !time){
-  //     return toast.error("Date & time required")
-  //   }
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   if (user) {
-  //     const response = await bookAppointment(user, {
-  //       doctorId: docId,
-  //       userId: user?.userExists?._id,
-  //       doctorInfo: doctor,
-  //       userInfo: user?.userExists,
-  //       date: date,
-  //       time: time,
-  //     });
-  //     console.log(response);
-  //     console.log("above is frontend response");
-  //     if(response.status){
-  //       navigate('/payment-page')
-  //     }
-
-  //   } else {
-  //     navigate("/login");
-  //     toast.error("You need to login first");
-  //   }
-  // };
 
   useEffect(() => {
     const fetchData = async () => {

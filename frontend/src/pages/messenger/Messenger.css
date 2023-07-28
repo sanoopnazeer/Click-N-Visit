@@ -1,4 +1,5 @@
 .messenger{
+    margin-top: 100px;
     height: calc(100vh - 150px);
     display: flex;
     padding-top: 25px;

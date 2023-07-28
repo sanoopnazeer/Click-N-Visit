@@ -6,11 +6,11 @@ import {
   MDBCardFooter,
   MDBValidation,
   MDBBtn,
-  MDBIcon,
   MDBSpinner,
   MDBValidationItem,
   MDBDropdown,
-  MDBRow,
+  // MDBIcon,
+  // MDBRow,
   // MDBDropdownMenu,
   // MDBDropdownToggle,
   // MDBDropdownItem,
@@ -23,6 +23,7 @@ import { doctorRegister } from "../../../axios/services/HomeServices";
 import { getCategories } from "../../../axios/services/AdminServices";
 import { TimePicker } from "antd";
 import moment from "moment";
+import "./DoctorSignup.css";
 
 const initialState = {
   firstname: "",
@@ -34,7 +35,7 @@ const initialState = {
   experience: "",
   feesPerConsultation: "",
   timings: "",
-  license: ""
+  license: "",
 };
 
 const DoctorRegister = () => {
@@ -54,7 +55,7 @@ const DoctorRegister = () => {
     experience,
     feesPerConsultation,
     timings,
-    license
+    license,
   } = formValue;
 
   const timing = timings && [
@@ -109,202 +110,204 @@ const DoctorRegister = () => {
 
   return (
     <>
-      <div
-        className="heading"
-        style={{ display: "flex", alignItems: "center" }}
-      >
-        <h3>DOCTOR APPLICATION</h3>
-      </div>
-      <div
-        style={{
-          margin: "auto",
-          // padding: "10px",
-          maxWidth: "70%",
-          alignContent: "center",
-          // marginTop: "30px",
-        }}
-      >
-        <MDBCard alignment="left">
-          {/* <MDBIcon fas icon="user-circle" className="fa-2x" /> */}
-          <MDBCardBody>
-            <MDBValidation
-              onSubmit={handleSubmit}
-              noValidate
-              className="row g-3"
-            >
-              <h4>Personal Details : </h4>
-              <MDBValidationItem
-                className="col-md-6"
-                feedback="Please provide firstname"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="Firstname"
-                    type="text"
-                    value={firstname}
-                    name="firstname"
-                    onChange={onInputChange}
-                    required
+      <div className="doctor-signup">
+        <div className="doctor-signup-container">
+          <div
+            className="heading"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <h3>DOCTOR APPLICATION</h3>
+          </div>
+          <div
+            // style={{
+            //   margin: "auto",
+            //   // padding: "10px",
+            //   maxWidth: "70%",
+            //   alignContent: "center",
+            //   // marginTop: "30px",
+            // }}
+          >
+            <MDBCard alignment="left">
+              {/* <MDBIcon fas icon="user-circle" className="fa-2x" /> */}
+              <MDBCardBody>
+                <MDBValidation
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="row g-3"
+                >
+                  <h4>Personal Details : </h4>
+                  <MDBValidationItem
+                    className="col-md-6"
+                    feedback="Please provide firstname"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-6"
-                feedback="Please provide lastname"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="Lastname"
-                    type="text"
-                    value={lastname}
-                    name="lastname"
-                    onChange={onInputChange}
-                    required
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="Firstname"
+                        type="text"
+                        value={firstname}
+                        name="firstname"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-6"
+                    feedback="Please provide lastname"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-12"
-                feedback="Please provide your email"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="Email"
-                    type="email"
-                    value={email}
-                    name="email"
-                    onChange={onInputChange}
-                    required
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="Lastname"
+                        type="text"
+                        value={lastname}
+                        name="lastname"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-12"
+                    feedback="Please provide your email"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-12"
-                feedback="Please provide your password"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="Password"
-                    type="password"
-                    value={password}
-                    name="password"
-                    onChange={onInputChange}
-                    required
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="Email"
+                        type="email"
+                        value={email}
+                        name="email"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-12"
+                    feedback="Please provide your password"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-12"
-                feedback="Please confirm your password"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="Confirm Password"
-                    type="password"
-                    value={confirmPassword}
-                    name="confirmPassword"
-                    onChange={onInputChange}
-                    required
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="Password"
+                        type="password"
+                        value={password}
+                        name="password"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-12"
+                    feedback="Please confirm your password"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <h4>Professional Details : </h4>
-              <MDBValidationItem
-                className="col-md-6"
-                feedback="Please provide specialization"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBDropdown>
-                    {/* <label for="Specialization">Specialization</label> */}
-                    <select
-                      class="form-select"
-                      name="specialization"
-                      area-label="Default select example"
-                      onChange={onInputChange}
-                    >
-                      <option value="" disabled selected>
-                        Specialization
-                      </option>
-                      {categories.map((item, index) => {
-                        return (
-                          <>
-                            <option key={index} value={item._id}>
-                              {item.category}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </select>
-                  </MDBDropdown>
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-6"
-                feedback="Please provide your License number"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="License number"
-                    type="license"
-                    value={license}
-                    name="license"
-                    onChange={onInputChange}
-                    required
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="Confirm Password"
+                        type="password"
+                        value={confirmPassword}
+                        name="confirmPassword"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <h4>Professional Details : </h4>
+                  <MDBValidationItem
+                    className="col-md-6"
+                    feedback="Please provide specialization"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-6"
-                feedback="Please provide your experience"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="Experience"
-                    type="experience"
-                    value={experience}
-                    name="experience"
-                    onChange={onInputChange}
-                    required
+                  >
+                    <div className="col-md-12">
+                      <MDBDropdown>
+                        {/* <label for="Specialization">Specialization</label> */}
+                        <select
+                          class="form-select"
+                          name="specialization"
+                          area-label="Default select example"
+                          onChange={onInputChange}
+                        >
+                          <option value="" disabled selected>
+                            Specialization
+                          </option>
+                          {categories.map((item, index) => {
+                            return (
+                              <>
+                                <option key={index} value={item._id}>
+                                  {item.category}
+                                </option>
+                              </>
+                            );
+                          })}
+                        </select>
+                      </MDBDropdown>
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-6"
+                    feedback="Please provide your License number"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-6"
-                feedback="Please provide your feesPerConsultation"
-                invalid
-              >
-                <div className="col-md-12">
-                  <MDBInput
-                    label="Fees Per Consultation"
-                    type="feesPerConsultation"
-                    value={feesPerConsultation}
-                    name="feesPerConsultation"
-                    onChange={onInputChange}
-                    required
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="License number"
+                        type="license"
+                        value={license}
+                        name="license"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-6"
+                    feedback="Please provide your experience"
                     invalid
-                  />
-                </div>
-              </MDBValidationItem>
-              <MDBValidationItem
-                className="col-md-12"
-                feedback="Please provide your timings"
-                invalid
-              >
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="Experience"
+                        type="experience"
+                        value={experience}
+                        name="experience"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-6"
+                    feedback="Please provide your feesPerConsultation"
+                    invalid
+                  >
+                    <div className="col-md-12">
+                      <MDBInput
+                        label="Fees Per Consultation"
+                        type="feesPerConsultation"
+                        value={feesPerConsultation}
+                        name="feesPerConsultation"
+                        onChange={onInputChange}
+                        required
+                        invalid
+                      />
+                    </div>
+                  </MDBValidationItem>
+                  <MDBValidationItem
+                    className="col-md-12"
+                    feedback="Please provide your timings"
+                    invalid
+                  >
                     <div className="col-md-12">
                       <label
                         // onChange={onInputChange}
@@ -328,28 +331,30 @@ const DoctorRegister = () => {
                         format="h:mm a"
                       />
                     </div>
-              </MDBValidationItem>
-              <div className="col-12">
-                <MDBBtn style={{ width: "100%" }} className="mt-2">
-                  {loading && (
-                    <MDBSpinner
-                      size="sm"
-                      role="status"
-                      tag="span"
-                      className="me-2"
-                    />
-                  )}
-                  Sign Up
-                </MDBBtn>
-              </div>
-            </MDBValidation>
-          </MDBCardBody>
-          <MDBCardFooter>
-            <Link to="/doctorLogin">
-              <p>Already have an account? Login here</p>
-            </Link>
-          </MDBCardFooter>
-        </MDBCard>
+                  </MDBValidationItem>
+                  <div className="col-12">
+                    <MDBBtn style={{ width: "100%" }} className="mt-2">
+                      {loading && (
+                        <MDBSpinner
+                          size="sm"
+                          role="status"
+                          tag="span"
+                          className="me-2"
+                        />
+                      )}
+                      Sign Up
+                    </MDBBtn>
+                  </div>
+                </MDBValidation>
+              </MDBCardBody>
+              <MDBCardFooter>
+                <Link to="/doctorLogin">
+                  <p>Already have an account? Login here</p>
+                </Link>
+              </MDBCardFooter>
+            </MDBCard>
+          </div>
+        </div>
       </div>
     </>
   );

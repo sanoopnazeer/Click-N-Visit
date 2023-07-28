@@ -8,6 +8,7 @@ const FindDoctor = () => {
 
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  
   const fetchData = async () => {
     const data = await getCategories();
     setCategories(data.categoryDetails);
